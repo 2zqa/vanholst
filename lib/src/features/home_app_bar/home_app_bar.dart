@@ -4,11 +4,7 @@ import 'package:vanholst/src/common_widgets/action_text_button.dart';
 import 'package:vanholst/src/constants/breakpoints.dart';
 import 'package:vanholst/src/features/home_app_bar/more_menu_button.dart';
 import 'package:vanholst/src/features/home_app_bar/shopping_cart_icon.dart';
-import 'package:vanholst/src/features/orders_list/orders_list_screen.dart';
-import 'package:vanholst/src/features/sign_in/email_password_sign_in_screen.dart';
-import 'package:vanholst/src/features/sign_in/email_password_sign_in_state.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
-import 'package:vanholst/src/models/app_user.dart';
 
 /// Custom [AppBar] widget that is reused by the [ProductsListScreen] and
 /// [ProductScreen].
@@ -46,16 +42,6 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           const ShoppingCartIcon(),
           if (user != null) ...[
             ActionTextButton(
-              key: MoreMenuButton.ordersKey,
-              text: 'Orders'.hardcoded,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (_) => const OrdersListScreen(),
-                ),
-              ),
-            ),
-            ActionTextButton(
               key: MoreMenuButton.accountKey,
               text: 'Account'.hardcoded,
               onPressed: () => context.go('/account'),
@@ -63,15 +49,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ] else
             ActionTextButton(
               key: MoreMenuButton.signInKey,
-              text: 'Sign In'.hardcoded,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (_) => const EmailPasswordSignInScreen(
-                    formType: EmailPasswordSignInFormType.signIn,
-                  ),
-                ),
-              ),
+              text: 'Log In'.hardcoded,
+              onPressed: () => context.go('/login'),
             )
         ],
       );
