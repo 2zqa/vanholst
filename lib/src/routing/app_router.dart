@@ -11,10 +11,12 @@ final goRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const ProductsListScreen(),
-    ),
-    GoRoute(
-      path: '/account',
-      builder: (context, state) => const AccountScreen(),
+      routes: [
+        GoRoute(
+          path: 'account',
+          builder: (context, state) => const AccountScreen(),
+        )
+      ],
     )
   ],
 );
