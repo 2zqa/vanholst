@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vanholst/src/common_widgets/custom_image.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/product_page/product_average_rating.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/models/product.dart';
 import 'package:vanholst/src/utils/currency_formatter.dart';
@@ -34,10 +33,6 @@ class ProductCard extends StatelessWidget {
               gapH8,
               Text(product.title,
                   style: Theme.of(context).textTheme.titleLarge),
-              if (product.numRatings >= 1) ...[
-                gapH8,
-                ProductAverageRating(product: product),
-              ],
               gapH24,
               Text(priceFormatted,
                   style: Theme.of(context).textTheme.headlineSmall),
