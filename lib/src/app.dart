@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:vanholst/src/features/products_list/products_list_screen.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
-
-// GoRouter configuration
-final _router = GoRouter(
-  initialLocation: '/',
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const ProductsListScreen(),
-    ),
-  ],
-);
+import 'package:vanholst/src/routing/app_router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -22,7 +10,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       restorationScopeId: 'app',
-      routerConfig: _router,
+      routerConfig: goRouter,
       onGenerateTitle: (BuildContext context) => 'My Shop'.hardcoded,
       theme: ThemeData(
         primarySwatch: Colors.grey,

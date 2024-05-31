@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/action_text_button.dart';
 import 'package:vanholst/src/constants/breakpoints.dart';
-import 'package:vanholst/src/features/account/account_screen.dart';
 import 'package:vanholst/src/features/home_app_bar/more_menu_button.dart';
 import 'package:vanholst/src/features/home_app_bar/shopping_cart_icon.dart';
 import 'package:vanholst/src/features/orders_list/orders_list_screen.dart';
@@ -58,12 +58,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             ActionTextButton(
               key: MoreMenuButton.accountKey,
               text: 'Account'.hardcoded,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                  fullscreenDialog: true,
-                  builder: (_) => const AccountScreen(),
-                ),
-              ),
+              onPressed: () => GoRouter.of(context).go('/account'),
             ),
           ] else
             ActionTextButton(
