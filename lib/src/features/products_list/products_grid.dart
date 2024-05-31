@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/constants/test_products.dart';
-import 'package:vanholst/src/features/product_page/product_screen.dart';
 import 'package:vanholst/src/features/products_list/product_card.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
@@ -29,11 +28,7 @@ class ProductsGrid extends StatelessWidget {
               final product = products[index];
               return ProductCard(
                 product: product,
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => ProductScreen(productId: product.id),
-                  ),
-                ),
+                onPressed: () {},
               );
             },
           );
