@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/action_text_button.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/models/app_user.dart';
+import 'package:vanholst/src/routing/app_router.dart';
 
 /// Custom [AppBar] widget that is reused by the [ProductsListScreen] and
 /// [ProductScreen].
@@ -24,12 +25,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         if (user != null) ...[
           ActionTextButton(
             text: 'Account'.hardcoded,
-            onPressed: () => context.go('/account'),
+            onPressed: () => context.goNamed(AppRoute.account.name),
           ),
         ] else
           ActionTextButton(
             text: 'Log In'.hardcoded,
-            onPressed: () => context.go('/login'),
+            onPressed: () => context.goNamed(AppRoute.login.name),
           )
       ],
     );
