@@ -1,5 +1,4 @@
 // GoRouter configuration
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/features/account/account_screen.dart';
@@ -16,7 +15,7 @@ enum AppRoute {
 
 final goRouter = GoRouter(
   initialLocation: '/',
-  debugLogDiagnostics: kDebugMode,
+  debugLogDiagnostics: false,
   routes: [
     GoRoute(
       path: '/',
