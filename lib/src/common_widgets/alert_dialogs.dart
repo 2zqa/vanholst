@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Generic function to show a platform-aware Material or Cupertino dialog
@@ -27,22 +28,22 @@ Future<bool?> showAlertDialog({
               if (cancelActionText != null)
                 TextButton(
                   child: Text(cancelActionText),
-                  onPressed: () => Navigator.of(context).pop(false),
+                  onPressed: () => context.pop(false),
                 ),
               TextButton(
                 child: Text(defaultActionText),
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () => context.pop(true),
               ),
             ]
           : <Widget>[
               if (cancelActionText != null)
                 CupertinoDialogAction(
                   child: Text(cancelActionText),
-                  onPressed: () => Navigator.of(context).pop(false),
+                  onPressed: () => context.pop(false),
                 ),
               CupertinoDialogAction(
                 child: Text(defaultActionText),
-                onPressed: () => Navigator.of(context).pop(true),
+                onPressed: () => context.pop(true),
               ),
             ],
     ),
