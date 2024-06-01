@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/features/account/account_screen.dart';
+import 'package:vanholst/src/features/not_found/not_found_screen.dart';
 import 'package:vanholst/src/features/products_list/products_list_screen.dart';
 import 'package:vanholst/src/features/sign_in/email_password_sign_in_screen.dart';
 import 'package:vanholst/src/features/sign_in/email_password_sign_in_state.dart';
@@ -41,4 +42,5 @@ final goRouter = GoRouter(
       ],
     )
   ],
+  errorBuilder: (context, state) => const NotFoundScreen(),
 );
