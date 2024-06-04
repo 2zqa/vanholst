@@ -1,8 +1,8 @@
-import 'package:vanholst/src/features/products/domain/product.dart';
+import 'package:vanholst/src/features/logbook/domain/product.dart';
 
 /// Test products to be used until a data source is implemented
-const kTestProducts = [
-  Product(
+const kTestLogbook = [
+  LogbookEntry(
     id: '1',
     imageUrl: 'assets/products/bruschetta-plate.jpg',
     title: 'Bruschetta plate',
@@ -12,7 +12,7 @@ const kTestProducts = [
     avgRating: 4.5,
     numRatings: 2,
   ),
-  Product(
+  LogbookEntry(
     id: '2',
     imageUrl: 'assets/products/mozzarella-plate.jpg',
     title: 'Mozzarella plate',
@@ -22,7 +22,7 @@ const kTestProducts = [
     avgRating: 4,
     numRatings: 2,
   ),
-  Product(
+  LogbookEntry(
     id: '3',
     imageUrl: 'assets/products/pasta-plate.jpg',
     title: 'Pasta plate',
@@ -32,7 +32,7 @@ const kTestProducts = [
     avgRating: 5,
     numRatings: 2,
   ),
-  Product(
+  LogbookEntry(
     id: '4',
     imageUrl: 'assets/products/piggy-blue.jpg',
     title: 'Piggy Bank Blue',
@@ -40,7 +40,7 @@ const kTestProducts = [
     price: 12,
     availableQuantity: 5,
   ),
-  Product(
+  LogbookEntry(
     id: '5',
     imageUrl: 'assets/products/piggy-green.jpg',
     title: 'Piggy Bank Green',
@@ -48,7 +48,7 @@ const kTestProducts = [
     price: 12,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '6',
     imageUrl: 'assets/products/piggy-pink.jpg',
     title: 'Piggy Bank Pink',
@@ -56,7 +56,7 @@ const kTestProducts = [
     price: 12,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '7',
     imageUrl: 'assets/products/pizza-plate.jpg',
     title: 'Pizza plate',
@@ -64,7 +64,7 @@ const kTestProducts = [
     price: 18,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '8',
     imageUrl: 'assets/products/plate-and-bowl.jpg',
     title: 'Plate and Bowl',
@@ -72,7 +72,7 @@ const kTestProducts = [
     price: 21,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '9',
     imageUrl: 'assets/products/salt-pepper-lemon.jpg',
     title: 'Salt and pepper lemon',
@@ -80,7 +80,7 @@ const kTestProducts = [
     price: 11,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '10',
     imageUrl: 'assets/products/salt-pepper-olives.jpg',
     title: 'Salt and pepper olives',
@@ -88,7 +88,7 @@ const kTestProducts = [
     price: 11,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '11',
     imageUrl: 'assets/products/snacks-plate.jpg',
     title: 'Snacks plate',
@@ -96,7 +96,7 @@ const kTestProducts = [
     price: 24,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '12',
     imageUrl: 'assets/products/flowers-plate.jpg',
     title: 'Flowers plate',
@@ -104,7 +104,7 @@ const kTestProducts = [
     price: 22,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '13',
     imageUrl: 'assets/products/juicer-citrus-fruits.jpg',
     title: 'Juicer for citrus fruits',
@@ -112,7 +112,7 @@ const kTestProducts = [
     price: 14,
     availableQuantity: 10,
   ),
-  Product(
+  LogbookEntry(
     id: '14',
     imageUrl: 'assets/products/honey-pot.jpg',
     title: 'Honey pot',

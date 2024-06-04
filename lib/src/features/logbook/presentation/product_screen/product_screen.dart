@@ -4,9 +4,9 @@ import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/constants/test_products.dart';
-import 'package:vanholst/src/features/products/domain/product.dart';
-import 'package:vanholst/src/features/products/presentation/home_app_bar/home_app_bar.dart';
+import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
+import 'package:vanholst/src/features/logbook/domain/product.dart';
+import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/utils/currency_formatter.dart';
 
@@ -18,8 +18,7 @@ class ProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: Read from data source
-    final product =
-        kTestProducts.firstWhere((product) => product.id == productId);
+    final product = FakeLogbookRepository.instance.getLogbookEntry(productId);
     return Scaffold(
       appBar: const HomeAppBar(),
       body: product == null
@@ -43,7 +42,7 @@ class ProductScreen extends StatelessWidget {
 /// - add to cart
 class ProductDetails extends StatelessWidget {
   const ProductDetails({super.key, required this.product});
-  final Product product;
+  final LogbookEntry product;
 
   @override
   Widget build(BuildContext context) {

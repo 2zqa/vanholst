@@ -2,8 +2,8 @@
 typedef ProductID = String;
 
 /// Class representing a product.
-class Product {
-  const Product({
+class LogbookEntry {
+  const LogbookEntry({
     required this.id,
     required this.imageUrl,
     required this.title,
