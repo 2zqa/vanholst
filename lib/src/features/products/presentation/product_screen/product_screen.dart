@@ -5,12 +5,8 @@ import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/constants/test_products.dart';
-import 'package:vanholst/src/features/cart/presentation/add_to_cart/add_to_cart_widget.dart';
 import 'package:vanholst/src/features/products/domain/product.dart';
 import 'package:vanholst/src/features/products/presentation/home_app_bar/home_app_bar.dart';
-import 'package:vanholst/src/features/products/presentation/product_screen/leave_review_action.dart';
-import 'package:vanholst/src/features/products/presentation/product_screen/product_average_rating.dart';
-import 'package:vanholst/src/features/reviews/presentation/product_reviews/product_reviews_list.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/utils/currency_formatter.dart';
 
@@ -36,7 +32,6 @@ class ProductScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(Sizes.p16),
                   child: ProductDetails(product: product),
                 ),
-                ProductReviewsList(productId: productId),
               ],
             ),
     );
@@ -71,21 +66,11 @@ class ProductDetails extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge),
               gapH8,
               Text(product.description),
-              // Only show average if there is at least one rating
-              if (product.numRatings >= 1) ...[
-                gapH8,
-                ProductAverageRating(product: product),
-              ],
               gapH8,
               const Divider(),
               gapH8,
               Text(priceFormatted,
                   style: Theme.of(context).textTheme.headlineSmall),
-              gapH8,
-              LeaveReviewAction(productId: product.id),
-              const Divider(),
-              gapH8,
-              AddToCartWidget(product: product),
             ],
           ),
         ),
