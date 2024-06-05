@@ -5,12 +5,14 @@ class FakeLogbookRepository {
   FakeLogbookRepository._();
   static FakeLogbookRepository instance = FakeLogbookRepository._();
 
+  final List<LogbookEntry> _entries = kTestLogbook;
+
   List<LogbookEntry> getLogbookEntryList() {
-    return kTestLogbook;
+    return _entries;
   }
 
   LogbookEntry? getLogbookEntry(String id) {
-    for (var entry in kTestLogbook) {
+    for (var entry in _entries) {
       if (entry.id == id) return entry;
     }
     return null;
