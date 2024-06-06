@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_layout_grid/flutter_layout_grid.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
@@ -10,13 +11,13 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 
 /// A widget that displays the list of products that match the search query.
-class ProductsGrid extends StatelessWidget {
+class ProductsGrid extends ConsumerWidget {
   const ProductsGrid({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: Read from data source
-    final products = FakeLogbookRepository.instance.getLogbookEntryList();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final logbookRepository = ref.watch(logbookRepositoryProvider);
+    final products = logbookRepository.getLogbookEntryList();
     return products.isEmpty
         ? Center(
             child: Text(
