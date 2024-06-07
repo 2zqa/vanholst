@@ -1,8 +1,27 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/constants/test_products.dart';
+import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 import 'package:vanholst/src/features/logbook/domain/product.dart';
 
-class FakeLogbookRepository {
+abstract class LogbookRepository {
+  Future<List<LogbookEntry>> getLogbookEntryList();
+  Future<LogbookEntry?> getLogbookEntry(String id);
+}
+
+class WordpressLogbookRepository implements LogbookRepository {
+
+  @override
+  Future<List<LogbookEntry>> getLogbookEntryList() async {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<LogbookEntry?> getLogbookEntry(String id) async {
+    throw UnimplementedError();
+  }
+}
+
+class FakeLogbookRepository implements LogbookRepository {
   final List<LogbookEntry> _entries = kTestLogbook;
 
   // TODO: delete this method
@@ -13,11 +32,13 @@ class FakeLogbookRepository {
     return _entries.first;
   }
 
+  @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
     await Future.delayed(const Duration(seconds: 2));
     return Future.value(_entries);
   }
 
+  @override
   Future<LogbookEntry?> getLogbookEntry(String id) async {
     await Future.delayed(const Duration(seconds: 2));
 
@@ -28,8 +49,9 @@ class FakeLogbookRepository {
   }
 }
 
-final logbookRepositoryProvider = Provider<FakeLogbookRepository>((ref) {
-  return FakeLogbookRepository();
+final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
+  const isFake = String.fromEnvironment('mock') == 'true';
+  return isFake ? FakeLogbookRepository() : WordpressLogbookRepository();
 });
 
 final logbookFutureProvider = FutureProvider<List<LogbookEntry>>((ref) {
