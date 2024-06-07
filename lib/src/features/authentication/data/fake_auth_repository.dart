@@ -1,59 +1,40 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user.dart';
+import 'package:vanholst/src/utils/in_memory_store.dart';
 
 abstract class AuthRepository {
   Stream<AppUser?> authStateChanges();
   AppUser? get currentUser;
-  Future<void> signInWithEmailAndPassword(String email, String password);
+  Future<void> signInWithUsernameAndPassword(String username, String password);
   Future<void> signOut();
 }
 
-class WordpressAuthRepository implements AuthRepository {
-  @override
-  Stream<AppUser?> authStateChanges() {
-    // TODO
-    throw UnimplementedError();
-  }
-
-  @override
-  AppUser? get currentUser {
-    // TODO
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> signInWithEmailAndPassword(String email, String password) {
-    // TODO
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> signOut() {
-    // TODO
-    throw UnimplementedError();
-  }
-}
-
 class FakeAuthRepository implements AuthRepository {
-  @override
-  Stream<AppUser?> authStateChanges() => Stream.value(null);
-  @override
-  AppUser? get currentUser => null;
+  final _authState = InMemoryStore<AppUser?>(null);
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
-    // TODO
-  }
+  Stream<AppUser?> authStateChanges() => _authState.stream;
 
   @override
-  Future<void> signOut() async {
-    // TODO
+  AppUser? get currentUser => _authState.value;
+
+  @override
+  Future<void> signOut() async => _authState.value = null;
+
+  @override
+  Future<void> signInWithUsernameAndPassword(
+      String username, String password) async {
+    _authState.value = AppUser(
+      username: username,
+      hash: '',
+      loggedIn: '',
+      sec: '',
+    );
   }
 }
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  const isFake = String.fromEnvironment('mock') == 'true';
-  return isFake ? FakeAuthRepository() : WordpressAuthRepository();
+  return FakeAuthRepository();
 });
 
 final authStateChangesProvider = StreamProvider.autoDispose<AppUser?>((ref) {
