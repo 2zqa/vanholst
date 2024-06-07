@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/constants/test_products.dart';
-import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 import 'package:vanholst/src/features/logbook/domain/product.dart';
 
 abstract class LogbookRepository {
@@ -9,7 +8,6 @@ abstract class LogbookRepository {
 }
 
 class WordpressLogbookRepository implements LogbookRepository {
-
   @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
     throw UnimplementedError();
