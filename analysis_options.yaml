@@ -7,3 +7,8 @@ analyzer:
 linter:
   rules:
     - use_super_parameters
+    - directives_ordering: true
+    - always_use_package_imports: true
+    - unawaited_futures: true
+    - prefer_final_locals: true
+    # - avoid_print: false  # Uncomment to disable the `avoid_print` rule
