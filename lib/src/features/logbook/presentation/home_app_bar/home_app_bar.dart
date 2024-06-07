@@ -17,7 +17,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: get user from auth repository
-    const user = AppUser(uid: '123', email: 'test@test.com');
+    const user = AppUser.demo();
     return AppBar(
       title: Text('Van Holst'.hardcoded),
       actions: [

@@ -54,7 +54,7 @@ class UserDataTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final style = Theme.of(context).textTheme.titleSmall!;
     // TODO: get user from auth repository
-    const user = AppUser(uid: '123', email: 'test@test.com');
+    const user = AppUser.demo();
     return DataTable(
       columns: [
         DataColumn(
@@ -72,15 +72,10 @@ class UserDataTable extends StatelessWidget {
       ],
       rows: [
         _makeDataRow(
-          'uid'.hardcoded,
-          user.uid,
+          'username'.hardcoded,
+          user.username,
           style,
-        ),
-        _makeDataRow(
-          'email'.hardcoded,
-          user.email ?? '',
-          style,
-        ),
+        )
       ],
     );
   }
