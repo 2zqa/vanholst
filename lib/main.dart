@@ -4,17 +4,27 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:vanholst/src/app.dart';
+import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
+import 'package:vanholst/src/features/authentication/data/fake_auth_repository.dart';
+import 'package:vanholst/src/features/authentication/data/wordpress_auth_repository.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // turn off the # in the URLs on the web
   usePathUrlStrategy();
-  // * Register error handlers. For more info, see:
-  // * https://docs.flutter.dev/testing/errors
   registerErrorHandlers();
-  // * Entry point of the app
-  runApp(const ProviderScope(child: MyApp()));
+  final wordpressAuthRepository = await WordpressAuthRepository.makeDefault();
+  runApp(ProviderScope(
+    overrides: [
+      authRepositoryProvider.overrideWith((ref) {
+        // Run with this command:
+        // flutter run --dart-define=useFakeRepos=true/false
+        const isFake = String.fromEnvironment('useFakeRepos') == 'true';
+        return isFake ? FakeAuthRepository() : wordpressAuthRepository;
+      })
+    ],
+    child: const MyApp(),
+  ));
 }
 
 void registerErrorHandlers() {
