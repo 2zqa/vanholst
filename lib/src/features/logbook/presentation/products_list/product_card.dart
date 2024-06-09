@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vanholst/src/common_widgets/custom_image.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/domain/product.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
@@ -27,10 +26,6 @@ class ProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              CustomImage(imageUrl: product.imageUrl),
-              gapH8,
-              const Divider(),
-              gapH8,
               Text(product.title,
                   style: Theme.of(context).textTheme.titleLarge),
               gapH24,
