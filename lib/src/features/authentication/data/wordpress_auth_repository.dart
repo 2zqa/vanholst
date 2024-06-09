@@ -10,15 +10,14 @@ class WordpressAuthRepository implements AuthRepository {
   WordpressAuthRepository(this.db);
   final Database db;
 
-  // TODO: finish this
-  // static Future<Database> createDatabase(String filename) async {
-  //   if (!kIsWeb) {
-  //     final appDocDir = await getApplicationDocumentsDirectory();
-  //     return databaseFactoryIo.openDatabase('${appDocDir.path}/$filename');
-  //   } else {
-  //     return databaseFactoryWeb.openDatabase(filename);
-  //   }
-  // }
+  static Future<Database> createDatabase(String filename) async {
+    if (!kIsWeb) {
+      final appDocDir = await getApplicationDocumentsDirectory();
+      return databaseFactoryIo.openDatabase('${appDocDir.path}/$filename');
+    } else {
+      return databaseFactoryWeb.openDatabase(filename);
+    }
+  }
 
   static Future<WordpressAuthRepository> makeDefault() async {
     final db = await createDatabase('auth.db');
