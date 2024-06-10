@@ -60,13 +60,3 @@ class NonEmptyStringValidator extends StringValidator {
     return value.isNotEmpty;
   }
 }
-
-class MinLengthStringValidator extends StringValidator {
-  MinLengthStringValidator(this.minLength);
-  final int minLength;
-
-  @override
-  bool isValid(String value) {
-    return value.length >= minLength;
-  }
-}

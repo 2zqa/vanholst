@@ -6,8 +6,6 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 /// Mixin class to be used for client-side email & password validation
 mixin EmailAndPasswordValidators {
   final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
-  final StringValidator passwordRegisterSubmitValidator =
-      MinLengthStringValidator(8);
   final StringValidator passwordSignInSubmitValidator =
       NonEmptyStringValidator();
 }
@@ -31,7 +29,7 @@ class SignInState with EmailAndPasswordValidators {
   }
 
   @override
-  String toString() => 'EmailPasswordSignInState(value: $value)';
+  String toString() => 'SignInState(value: $value)';
 
   @override
   bool operator ==(Object other) {
@@ -44,7 +42,7 @@ class SignInState with EmailAndPasswordValidators {
   int get hashCode => value.hashCode;
 }
 
-extension EmailPasswordSignInStateX on SignInState {
+extension SignInStateX on SignInState {
   String get passwordLabelText => 'Password'.hardcoded;
 
   bool canSubmitEmail(String email) {
@@ -64,9 +62,6 @@ extension EmailPasswordSignInStateX on SignInState {
 
   String? passwordErrorText(String password) {
     final bool showErrorText = !canSubmitPassword(password);
-    final String errorText = password.isEmpty
-        ? 'Password can\'t be empty'.hardcoded
-        : 'Password is too short'.hardcoded;
-    return showErrorText ? errorText : null;
+    return showErrorText ? 'Password can\'t be empty'.hardcoded : null;
   }
 }

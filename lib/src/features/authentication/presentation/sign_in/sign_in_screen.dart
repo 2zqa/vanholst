@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/primary_button.dart';
 import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
+import 'package:vanholst/src/features/authentication/presentation/account/sign_in_controller.dart';
 import 'package:vanholst/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:vanholst/src/features/authentication/presentation/sign_in/string_validators.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
+import 'package:vanholst/src/utils/async_value_ui.dart';
 
 /// Email & password sign in screen.
-/// Wraps the [EmailPasswordSignInContents] widget below with a [Scaffold] and
+/// Wraps the [SignInContents] widget below with a [Scaffold] and
 /// [AppBar] with a title.
-class EmailPasswordSignInScreen extends StatelessWidget {
-  const EmailPasswordSignInScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
@@ -22,30 +25,26 @@ class EmailPasswordSignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign In'.hardcoded)),
-      body: EmailPasswordSignInContents(
+      body: SignInContents(
         onSignedIn: () => context.pop(),
       ),
     );
   }
 }
 
-/// A widget for email & password authentication, supporting the following:
-/// - sign in
-/// - register (create an account)
-class EmailPasswordSignInContents extends StatefulWidget {
-  const EmailPasswordSignInContents({
+/// A widget for authenticating.
+class SignInContents extends ConsumerStatefulWidget {
+  const SignInContents({
     super.key,
     this.onSignedIn,
   });
   final VoidCallback? onSignedIn;
 
   @override
-  State<EmailPasswordSignInContents> createState() =>
-      _EmailPasswordSignInContentsState();
+  ConsumerState<SignInContents> createState() => _SignInContentsState();
 }
 
-class _EmailPasswordSignInContentsState
-    extends State<EmailPasswordSignInContents> {
+class _SignInContentsState extends ConsumerState<SignInContents> {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _emailController = TextEditingController();
@@ -59,8 +58,6 @@ class _EmailPasswordSignInContentsState
   // For more details on how this is implemented, see:
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
-  // local variable representing the loading state
-  late final _state = SignInState();
 
   @override
   void dispose() {
@@ -75,8 +72,11 @@ class _EmailPasswordSignInContentsState
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
-      // TODO: Authentication logic
-      widget.onSignedIn?.call();
+      final controller = ref.read(signInControllerProvider.notifier);
+      final success = await controller.submit(email, password);
+      if (success) {
+        widget.onSignedIn?.call();
+      }
     }
   }
 
@@ -96,6 +96,11 @@ class _EmailPasswordSignInContentsState
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      signInControllerProvider.select((state) => state.value),
+      (_, value) => value.showAlertDialogOnError(context),
+    );
+    final state = ref.watch(signInControllerProvider);
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
@@ -107,21 +112,21 @@ class _EmailPasswordSignInContentsState
               gapH8,
               // Email field
               TextFormField(
-                key: EmailPasswordSignInScreen.emailKey,
+                key: SignInScreen.emailKey,
                 controller: _emailController,
                 decoration: InputDecoration(
                   labelText: 'Email'.hardcoded,
                   hintText: 'test@test.com'.hardcoded,
-                  enabled: !_state.isLoading,
+                  enabled: !state.isLoading,
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (email) =>
-                    !_submitted ? null : _state.emailErrorText(email ?? ''),
+                    !_submitted ? null : state.emailErrorText(email ?? ''),
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
                 keyboardAppearance: Brightness.light,
-                onEditingComplete: () => _emailEditingComplete(_state),
+                onEditingComplete: () => _emailEditingComplete(state),
                 inputFormatters: <TextInputFormatter>[
                   ValidatorInputFormatter(
                       editingValidator: EmailEditingRegexValidator()),
@@ -130,27 +135,27 @@ class _EmailPasswordSignInContentsState
               gapH8,
               // Password field
               TextFormField(
-                key: EmailPasswordSignInScreen.passwordKey,
+                key: SignInScreen.passwordKey,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  labelText: _state.passwordLabelText,
-                  enabled: !_state.isLoading,
+                  labelText: state.passwordLabelText,
+                  enabled: !state.isLoading,
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => !_submitted
                     ? null
-                    : _state.passwordErrorText(password ?? ''),
+                    : state.passwordErrorText(password ?? ''),
                 obscureText: true,
                 autocorrect: false,
                 textInputAction: TextInputAction.done,
                 keyboardAppearance: Brightness.light,
-                onEditingComplete: () => _passwordEditingComplete(_state),
+                onEditingComplete: () => _passwordEditingComplete(state),
               ),
               gapH8,
               PrimaryButton(
                 text: 'Sign in'.hardcoded,
-                isLoading: _state.isLoading,
-                onPressed: _state.isLoading ? null : () => _submit(_state),
+                isLoading: state.isLoading,
+                onPressed: state.isLoading ? null : () => _submit(state),
               ),
             ],
           ),
