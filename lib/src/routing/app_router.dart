@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vanholst/src/features/authentication/presentation/sign_in/email_password_sign_in_screen.dart';
-import 'package:vanholst/src/features/authentication/presentation/sign_in/email_password_sign_in_state.dart';
 import 'package:vanholst/src/features/logbook/presentation/product_screen/product_screen.dart';
 import 'package:vanholst/src/features/logbook/presentation/products_list/products_list_screen.dart';
 import 'package:vanholst/src/routing/not_found_screen.dart';
@@ -44,9 +43,7 @@ final goRouter = GoRouter(
           name: AppRoute.signIn.name,
           pageBuilder: (context, state) => const MaterialPage(
             fullscreenDialog: true,
-            child: EmailPasswordSignInScreen(
-              formType: EmailPasswordSignInFormType.signIn,
-            ),
+            child: EmailPasswordSignInScreen(),
           ),
         ),
       ],

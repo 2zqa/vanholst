@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vanholst/src/common_widgets/custom_text_button.dart';
 import 'package:vanholst/src/common_widgets/primary_button.dart';
 import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
@@ -13,8 +12,7 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 /// Wraps the [EmailPasswordSignInContents] widget below with a [Scaffold] and
 /// [AppBar] with a title.
 class EmailPasswordSignInScreen extends StatelessWidget {
-  const EmailPasswordSignInScreen({super.key, required this.formType});
-  final EmailPasswordSignInFormType formType;
+  const EmailPasswordSignInScreen({super.key});
 
   // * Keys for testing using find.byKey()
   static const emailKey = Key('email');
@@ -25,7 +23,6 @@ class EmailPasswordSignInScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('Sign In'.hardcoded)),
       body: EmailPasswordSignInContents(
-        formType: formType,
         onSignedIn: () => context.pop(),
       ),
     );
@@ -39,12 +36,9 @@ class EmailPasswordSignInContents extends StatefulWidget {
   const EmailPasswordSignInContents({
     super.key,
     this.onSignedIn,
-    required this.formType,
   });
   final VoidCallback? onSignedIn;
 
-  /// The default form type to use.
-  final EmailPasswordSignInFormType formType;
   @override
   State<EmailPasswordSignInContents> createState() =>
       _EmailPasswordSignInContentsState();
@@ -65,8 +59,8 @@ class _EmailPasswordSignInContentsState
   // For more details on how this is implemented, see:
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
-  // local variable representing the form type and loading state
-  late var _state = EmailPasswordSignInState();
+  // local variable representing the loading state
+  late final _state = EmailPasswordSignInState();
 
   @override
   void dispose() {
@@ -98,13 +92,6 @@ class _EmailPasswordSignInContentsState
       return;
     }
     _submit(state);
-  }
-
-  void _updateFormType(EmailPasswordSignInFormType formType) {
-    // * Toggle between register and sign in form
-    setState(() => _state = _state.copyWith(formType: formType));
-    // * Clear the password field when doing so
-    _passwordController.clear();
   }
 
   @override
@@ -161,16 +148,9 @@ class _EmailPasswordSignInContentsState
               ),
               gapH8,
               PrimaryButton(
-                text: _state.primaryButtonText,
+                text: 'Sign in'.hardcoded,
                 isLoading: _state.isLoading,
                 onPressed: _state.isLoading ? null : () => _submit(_state),
-              ),
-              gapH8,
-              CustomTextButton(
-                text: _state.secondaryButtonText,
-                onPressed: _state.isLoading
-                    ? null
-                    : () => _updateFormType(_state.secondaryActionFormType),
               ),
             ],
           ),
