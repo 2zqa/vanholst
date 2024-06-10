@@ -60,7 +60,7 @@ class _EmailPasswordSignInContentsState
   // https://codewithandrea.com/articles/flutter-text-field-form-validation/
   var _submitted = false;
   // local variable representing the loading state
-  late final _state = EmailPasswordSignInState();
+  late final _state = SignInState();
 
   @override
   void dispose() {
@@ -71,7 +71,7 @@ class _EmailPasswordSignInContentsState
     super.dispose();
   }
 
-  Future<void> _submit(EmailPasswordSignInState state) async {
+  Future<void> _submit(SignInState state) async {
     setState(() => _submitted = true);
     // only submit the form if validation passes
     if (_formKey.currentState!.validate()) {
@@ -80,13 +80,13 @@ class _EmailPasswordSignInContentsState
     }
   }
 
-  void _emailEditingComplete(EmailPasswordSignInState state) {
+  void _emailEditingComplete(SignInState state) {
     if (state.canSubmitEmail(email)) {
       _node.nextFocus();
     }
   }
 
-  void _passwordEditingComplete(EmailPasswordSignInState state) {
+  void _passwordEditingComplete(SignInState state) {
     if (!state.canSubmitEmail(email)) {
       _node.previousFocus();
       return;

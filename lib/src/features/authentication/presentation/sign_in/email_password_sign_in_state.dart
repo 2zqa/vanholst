@@ -14,18 +14,18 @@ mixin EmailAndPasswordValidators {
 
 /// State class for the email & password form.
 @immutable
-class EmailPasswordSignInState with EmailAndPasswordValidators {
-  EmailPasswordSignInState({
+class SignInState with EmailAndPasswordValidators {
+  SignInState({
     this.value = const AsyncValue.data(null),
   });
 
   final AsyncValue<void> value;
   bool get isLoading => value.isLoading;
 
-  EmailPasswordSignInState copyWith({
+  SignInState copyWith({
     AsyncValue<void>? value,
   }) {
-    return EmailPasswordSignInState(
+    return SignInState(
       value: value ?? this.value,
     );
   }
@@ -37,14 +37,14 @@ class EmailPasswordSignInState with EmailAndPasswordValidators {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is EmailPasswordSignInState && other.value == value;
+    return other is SignInState && other.value == value;
   }
 
   @override
   int get hashCode => value.hashCode;
 }
 
-extension EmailPasswordSignInStateX on EmailPasswordSignInState {
+extension EmailPasswordSignInStateX on SignInState {
   String get passwordLabelText => 'Password'.hardcoded;
 
   bool canSubmitEmail(String email) {
