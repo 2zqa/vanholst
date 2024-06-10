@@ -14,43 +14,35 @@ mixin EmailAndPasswordValidators {
 }
 
 /// State class for the email & password form.
+@immutable
 class EmailPasswordSignInState with EmailAndPasswordValidators {
   EmailPasswordSignInState({
-    this.formType = EmailPasswordSignInFormType.signIn,
-    this.isLoading = false,
+    this.value = const AsyncValue.data(null),
   });
 
-  final EmailPasswordSignInFormType formType;
-  final bool isLoading;
+  final AsyncValue<void> value;
+  bool get isLoading => value.isLoading;
 
   EmailPasswordSignInState copyWith({
-    EmailPasswordSignInFormType? formType,
-    bool? isLoading,
+    AsyncValue<void>? value,
   }) {
     return EmailPasswordSignInState(
-      formType: formType ?? this.formType,
-      isLoading: isLoading ?? this.isLoading,
+      value: value ?? this.value,
     );
   }
 
   @override
-  String toString() {
-    return 'EmailPasswordSignInState(formType: $formType, isLoading: $isLoading)';
-  }
+  String toString() => 'EmailPasswordSignInState(value: $value)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is EmailPasswordSignInState &&
-        other.formType == formType &&
-        other.isLoading == isLoading;
+    return other is EmailPasswordSignInState && other.value == value;
   }
 
   @override
-  int get hashCode {
-    return formType.hashCode ^ isLoading.hashCode;
-  }
+  int get hashCode => value.hashCode;
 }
 
 extension EmailPasswordSignInStateX on EmailPasswordSignInState {
