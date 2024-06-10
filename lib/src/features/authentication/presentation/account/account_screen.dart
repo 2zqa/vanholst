@@ -5,7 +5,7 @@ import 'package:vanholst/src/common_widgets/action_text_button.dart';
 import 'package:vanholst/src/common_widgets/alert_dialogs.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/authentication/domain/app_user.dart';
+import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/presentation/account/account_screen_controller.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
@@ -49,14 +49,13 @@ class AccountScreen extends ConsumerWidget {
 }
 
 /// Simple user data table showing the uid and email
-class UserDataTable extends StatelessWidget {
+class UserDataTable extends ConsumerWidget {
   const UserDataTable({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final style = Theme.of(context).textTheme.titleSmall!;
-    // TODO: get user from auth repository
-    const user = AppUser.demo();
+    final user = ref.watch(authStateChangesProvider).value;
     return DataTable(
       columns: [
         DataColumn(
@@ -75,7 +74,7 @@ class UserDataTable extends StatelessWidget {
       rows: [
         _makeDataRow(
           'username'.hardcoded,
-          user.username,
+          user?.username ?? '',
           style,
         )
       ],

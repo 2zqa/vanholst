@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/action_text_button.dart';
-import 'package:vanholst/src/features/authentication/domain/app_user.dart';
+import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 
@@ -11,13 +12,12 @@ import 'package:vanholst/src/routing/app_router.dart';
 /// - [ShoppingCartIcon]
 /// - Orders button
 /// - Account or Sign-in button
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
   const HomeAppBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    // TODO: get user from auth repository
-    const user = AppUser.demo();
+  Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authStateChangesProvider).value;
     return AppBar(
       title: Text('Van Holst'.hardcoded),
       actions: [
