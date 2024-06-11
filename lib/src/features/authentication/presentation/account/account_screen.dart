@@ -34,7 +34,6 @@ class AccountScreen extends ConsumerWidget {
               );
               if (logout == true) {
                 ref.read(accountScreenControllerProvider.notifier).signOut();
-                goRouter.pop();
               }
             },
           ),

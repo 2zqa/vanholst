@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/primary_button.dart';
 import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
@@ -25,9 +24,7 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Sign In'.hardcoded)),
-      body: SignInContents(
-        onSignedIn: () => context.pop(),
-      ),
+      body: const SignInContents(),
     );
   }
 }
