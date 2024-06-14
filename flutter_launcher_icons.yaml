@@ -1,0 +1,8 @@
+flutter_launcher_icons:
+  image_path: "assets/app-icon.png"
+  android: true
+  web:
+    generate: true
+    image_path: "assets/app-icon.png"
+    background_color: "#ffffff"
+    theme_color: "#dd0000"
