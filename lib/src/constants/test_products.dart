@@ -1,4 +1,4 @@
-import 'package:vanholst/src/features/logbook/domain/product.dart';
+import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 
 /// Test products to be used until a data source is implemented
 const kTestLogbook = [

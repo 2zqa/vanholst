@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/logbook/domain/product.dart';
+import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/utils/currency_formatter.dart';
 

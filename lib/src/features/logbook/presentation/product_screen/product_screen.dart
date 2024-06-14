@@ -7,7 +7,7 @@ import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/common_widgets/responsive_two_column_layout.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
-import 'package:vanholst/src/features/logbook/domain/product.dart';
+import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/utils/currency_formatter.dart';
