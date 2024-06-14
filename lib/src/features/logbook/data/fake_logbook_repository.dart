@@ -48,8 +48,9 @@ class FakeLogbookRepository implements LogbookRepository {
 }
 
 final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
-  const isFake = String.fromEnvironment('useFakeRepos') == 'true';
-  return isFake ? FakeLogbookRepository() : WordpressLogbookRepository();
+  // const isFake = String.fromEnvironment('useFakeRepos') == 'true';
+  // return isFake ? FakeLogbookRepository() : WordpressLogbookRepository();
+  return FakeLogbookRepository();
 });
 
 final logbookFutureProvider = FutureProvider<List<LogbookEntry>>((ref) {
