@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/action_text_button.dart';
 import 'package:vanholst/src/common_widgets/alert_dialogs.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
@@ -25,7 +24,6 @@ class AccountScreen extends ConsumerWidget {
               // * Get the navigator beforehand to prevent this warning:
               // * Don't use 'BuildContext's across async gaps.
               // * More info here: https://youtu.be/bzWaMpD1LHY
-              final goRouter = GoRouter.of(context);
               final logout = await showAlertDialog(
                 context: context,
                 title: 'Are you sure?'.hardcoded,
