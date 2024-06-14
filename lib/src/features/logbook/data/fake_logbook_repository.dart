@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vanholst/src/constants/test_products.dart';
+import 'package:vanholst/src/constants/test_logbook.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 
 abstract class LogbookRepository {

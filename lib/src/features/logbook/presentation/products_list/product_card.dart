@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
-import 'package:vanholst/src/localization/string_hardcoded.dart';
-import 'package:vanholst/src/utils/currency_formatter.dart';
 
 /// Used to show a single product inside a card.
 class ProductCard extends StatelessWidget {
@@ -15,8 +13,6 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Inject formatter
-    final priceFormatted = kCurrencyFormatter.format(product.price);
     return Card(
       child: InkWell(
         key: productCardKey,
@@ -26,16 +22,10 @@ class ProductCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(product.title,
-                  style: Theme.of(context).textTheme.titleLarge),
+              Text(product.id, style: Theme.of(context).textTheme.titleLarge),
               gapH24,
-              Text(priceFormatted,
-                  style: Theme.of(context).textTheme.headlineSmall),
-              gapH4,
               Text(
-                product.availableQuantity <= 0
-                    ? 'Out of Stock'.hardcoded
-                    : 'Quantity: ${product.availableQuantity}'.hardcoded,
+                product.performance ?? 'Unknown',
                 style: Theme.of(context).textTheme.bodySmall,
               )
             ],
