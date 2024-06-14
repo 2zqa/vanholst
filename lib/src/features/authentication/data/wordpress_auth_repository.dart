@@ -43,10 +43,14 @@ class WordpressAuthRepository implements AuthRepository {
 
   @override
   Stream<AppUser?> authStateChanges() {
-    return store
-        .record(_userKey)
-        .onSnapshot(db)
-        .map((snapshot) => snapshot?.value as AppUser?);
+    final record = store.record(_userKey);
+    return record.onSnapshot(db).map((snapshot) {
+      if (snapshot != null) {
+        return AppUser.fromJson(snapshot.value as String);
+      } else {
+        return null;
+      }
+    });
   }
 
   @override
