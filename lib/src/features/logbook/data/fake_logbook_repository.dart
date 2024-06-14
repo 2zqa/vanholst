@@ -22,14 +22,6 @@ class WordpressLogbookRepository implements LogbookRepository {
 class FakeLogbookRepository implements LogbookRepository {
   final List<LogbookEntry> _entries = kTestLogbook;
 
-  // TODO: delete this method
-  LogbookEntry getLogbookEntrySync(String id) {
-    for (var entry in _entries) {
-      if (entry.id == id) return entry;
-    }
-    return _entries.first;
-  }
-
   @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
     await Future.delayed(const Duration(seconds: 2));
