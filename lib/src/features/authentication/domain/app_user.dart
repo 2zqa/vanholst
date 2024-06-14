@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 
 @immutable
@@ -14,10 +16,31 @@ class AppUser {
     required this.loggedIn,
   });
 
-  // TODO: remove this
-  const AppUser.demo()
-      : username = 'john.doe@example.com',
-        hash = 'af260975066dfcbf287cb2ec9cfe729b',
-        sec = 'demo-sec',
-        loggedIn = 'demo-loggedIn';
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'hash': hash,
+      'sec': sec,
+      'loggedIn': loggedIn,
+    };
+  }
+
+  factory AppUser.fromMap(Map<String, dynamic> map) {
+    return AppUser(
+      username: map['username'] ?? '',
+      hash: map['hash'] ?? '',
+      sec: map['sec'] ?? '',
+      loggedIn: map['loggedIn'] ?? '',
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory AppUser.fromJson(String source) =>
+      AppUser.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'AppUser(username: $username, hash: $hash, sec: $sec, loggedIn: $loggedIn)';
+  }
 }

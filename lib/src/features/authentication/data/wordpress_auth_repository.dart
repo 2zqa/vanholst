@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
@@ -9,6 +12,9 @@ import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 class WordpressAuthRepository implements AuthRepository {
   WordpressAuthRepository(this.db);
   final Database db;
+  final store = StoreRef.main();
+  static const _userKey = 'user';
+  AppUser? _currentUser;
 
   static Future<Database> createDatabase(String filename) async {
     if (!kIsWeb) {
@@ -21,28 +27,116 @@ class WordpressAuthRepository implements AuthRepository {
 
   static Future<WordpressAuthRepository> makeDefault() async {
     final db = await createDatabase('auth.db');
-    return WordpressAuthRepository(db);
+    final repo = WordpressAuthRepository(db);
+    repo._currentUser = await repo._fetchUser();
+    return repo;
+  }
+
+  Future<AppUser?> _fetchUser() async {
+    final record = await store.record(_userKey).get(db) as String?;
+    if (record == null) {
+      return null;
+    }
+    return AppUser.fromJson(record);
   }
 
   @override
   Stream<AppUser?> authStateChanges() {
-    // TODO: implement authStateChanges
-    throw UnimplementedError();
+    return store
+        .record(_userKey)
+        .onSnapshot(db)
+        .map((snapshot) => snapshot?.value as AppUser?);
   }
 
   @override
-  // TODO: implement currentUser
-  AppUser? get currentUser => throw UnimplementedError();
+  AppUser? get currentUser => _currentUser;
 
   @override
-  Future<void> signInWithUsernameAndPassword(String username, String password) {
-    // TODO: implement signInWithUsernameAndPassword
-    throw UnimplementedError();
+  Future<void> signInWithUsernameAndPassword(
+      String username, String password) async {
+    final (loginNonce, formID) = await _getNonceAndFormID();
+    final (sec, loggedIn, hash) =
+        await _signIn(username, password, loginNonce, formID);
+    final user = AppUser(
+      username: username,
+      sec: sec,
+      loggedIn: loggedIn,
+      hash: hash,
+    );
+    _currentUser = user;
+    await store.record(_userKey).put(db, user.toJson());
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  void signOut() {
+    _currentUser = null;
+    unawaited(store.record(_userKey).delete(db));
+  }
+
+  Future<(String, String)> _getNonceAndFormID() async {
+    final uri = Uri.parse("https://www.vanholstcoaching.nl/login/");
+    final response = await http.get(uri);
+    if (response.statusCode == 200) {
+      final body = response.body;
+      final nonce =
+          RegExp(r'name="_wpnonce" value="(\w+)"').firstMatch(body)?.group(1);
+      if (nonce == null) {
+        throw Exception('Failed to parse nonce');
+      }
+      final formID =
+          RegExp(r'id="form_id_\d+" value="(\d+)"').firstMatch(body)?.group(1);
+      if (formID == null) {
+        throw Exception('Failed to parse formID');
+      }
+      return (nonce, formID);
+    } else {
+      throw Exception('Failed to load page');
+    }
+  }
+
+  Future<(String, String, String)> _signIn(
+    String username,
+    String password,
+    String loginNonce,
+    String formID,
+  ) async {
+    final response = await http.post(
+      Uri.parse("https://www.vanholstcoaching.nl/login/"),
+      body: {
+        'username-$formID': username,
+        'user_password-$formID': password,
+        'form_id': formID,
+        "um_request": "",
+        '_wpnonce': loginNonce,
+        '_wp_http_referer': '/login/',
+      },
+    );
+
+    if (response.statusCode != 302) {
+      throw Exception("Page didn't load correctly");
+    }
+
+    final cookieHeader = response.headers['set-cookie'];
+
+    if (cookieHeader == null) {
+      throw Exception('No cookies in response');
+    }
+
+    if (!cookieHeader.contains('wordpress_sec') ||
+        !cookieHeader.contains('wordpress_logged_in')) {
+      throw Exception('Missing required cookies');
+    }
+
+    final cookies = cookieHeader.split(RegExp(r'\s*,\s*'));
+
+    final secSplit = cookies
+        .firstWhere((cookie) => cookie.startsWith('wordpress_sec'))
+        .split('=');
+    final hash = secSplit[0].split('_').last;
+    final loggedIn = cookies
+        .firstWhere((cookie) => cookie.startsWith('wordpress_logged_in'))
+        .split('=')[1];
+
+    return (secSplit[1], loggedIn, hash);
   }
 }
