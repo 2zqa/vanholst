@@ -79,7 +79,6 @@ class WordpressAuthRepository implements AuthRepository {
   }
 
   Future<(String, String)> _getNonceAndFormID() async {
-    final uri = Uri.parse("https://www.vanholstcoaching.nl/login/");
     final response = await _getVanHolstLoginResponse();
     if (response.statusCode == 200) {
       final body = response.body;
@@ -145,6 +144,7 @@ class WordpressAuthRepository implements AuthRepository {
     return (secSplit[1], loggedIn, hash);
   }
 
+  // TODO: move as many variables to constants as possible
   Future<http.Response> _getVanHolstLoginResponse() async {
     final now = DateTime.now().subtract(const Duration(seconds: 5));
     final formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
