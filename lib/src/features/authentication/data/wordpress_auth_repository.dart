@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:sembast_web/sembast_web.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user.dart';
+import 'package:vanholst/src/utils/get_impersonating_headers.dart';
 
 class WordpressAuthRepository implements AuthRepository {
   WordpressAuthRepository(this.db);
@@ -133,6 +133,7 @@ class WordpressAuthRepository implements AuthRepository {
 
     final cookies = cookieHeader.split(RegExp(r'\s*,\s*'));
 
+    // TODO: fix retrieval logic
     final secSplit = cookies
         .firstWhere((cookie) => cookie.startsWith('wordpress_sec'))
         .split('=');
@@ -144,34 +145,9 @@ class WordpressAuthRepository implements AuthRepository {
     return (secSplit[1], loggedIn, hash);
   }
 
-  // TODO: move as many variables to constants as possible
   Future<http.Response> _getVanHolstLoginResponse() async {
-    final now = DateTime.now().subtract(const Duration(seconds: 5));
-    final formattedTime = DateFormat('yyyy-MM-dd HH:mm:ss').format(now);
-    final encodedTime = Uri.encodeComponent(formattedTime);
-    final headers = {
-      'accept':
-          'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-      'accept-language': 'nl-NL,nl;q=0.9,en-US;q=0.8,en;q=0.7',
-      'cookie':
-          'sbjs_migrations=1418474375998%3D1; sbjs_current_add=fd%3D$encodedTime%7C%7C%7Cep%3Dhttps%3A%2F%2Fwww.vanholstcoaching.nl%2F%7C%7C%7Crf%3Dhttps%3A%2F%2Fwww.google.com%2F; sbjs_first_add=fd%3D$encodedTime%7C%7C%7Cep%3Dhttps%3A%2F%2Fwww.vanholstcoaching.nl%2F%7C%7C%7Crf%3Dhttps%3A%2F%2Fwww.google.com%2F; sbjs_current=typ%3Dorganic%7C%7C%7Csrc%3Dgoogle%7C%7C%7Cmdm%3Dorganic%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29; sbjs_first=typ%3Dorganic%7C%7C%7Csrc%3Dgoogle%7C%7C%7Cmdm%3Dorganic%7C%7C%7Ccmp%3D%28none%29%7C%7C%7Ccnt%3D%28none%29%7C%7C%7Ctrm%3D%28none%29%7C%7C%7Cid%3D%28none%29; sbjs_udata=vst%3D1%7C%7C%7Cuip%3D%28none%29%7C%7C%7Cuag%3DMozilla%2F5.0%20%28X11%3B%20Linux%20x86_64%29%20AppleWebKit%2F537.36%20%28KHTML%2C%20like%20Gecko%29%20Chrome%2F125.0.0.0%20Safari%2F537.36; sbjs_session=pgs%3D4%7C%7C%7Ccpg%3Dhttps%3A%2F%2Fwww.vanholstcoaching.nl%2F',
-      'priority': 'u=0, i',
-      'referer': 'https://www.vanholstcoaching.nl/',
-      'sec-ch-ua':
-          '"Google Chrome";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
-      'sec-ch-ua-mobile': '?0',
-      'sec-ch-ua-platform': '"Linux"',
-      'sec-fetch-dest': 'document',
-      'sec-fetch-mode': 'navigate',
-      'sec-fetch-site': 'same-origin',
-      'sec-fetch-user': '?1',
-      'upgrade-insecure-requests': '1',
-      'user-agent':
-          'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-    };
-
+    final headers = getImpersonatingHeaders();
     final params = {'redirect_to': 'https://www.vanholstcoaching.nl/account/'};
-
     final url = Uri.parse('https://www.vanholstcoaching.nl/login/')
         .replace(queryParameters: params);
 
