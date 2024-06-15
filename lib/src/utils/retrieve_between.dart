@@ -4,6 +4,7 @@ extension StringUtils on String {
     if (startIndex == -1) {
       return '';
     }
+    // Only search for end-string after the start
     final endIndex = indexOf(end, startIndex + start.length);
     if (endIndex == -1) {
       return '';
