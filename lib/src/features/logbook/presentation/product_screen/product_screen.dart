@@ -4,7 +4,7 @@ import 'package:vanholst/src/common_widgets/async_value_widget.dart';
 import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
+import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';

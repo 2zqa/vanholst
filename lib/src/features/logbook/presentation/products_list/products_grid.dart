@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/async_value_widget.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
+import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/presentation/products_list/product_card.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
