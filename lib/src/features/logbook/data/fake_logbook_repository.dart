@@ -20,4 +20,13 @@ class FakeLogbookRepository implements LogbookRepository {
     }
     return null;
   }
+
+  @override
+  Future<void> updateLogbookEntry(LogbookEntry entry) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final index = _entries.indexWhere((e) => e.id == entry.id);
+    if (index != -1) {
+      _entries[index] = entry;
+    }
+  }
 }

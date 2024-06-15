@@ -11,4 +11,10 @@ class WordpressLogbookRepository implements LogbookRepository {
   Future<LogbookEntry?> getLogbookEntry(String id) async {
     throw UnimplementedError();
   }
+
+  @override
+  Future<void> updateLogbookEntry(LogbookEntry entry) {
+    // TODO: implement updateLogbookEntry
+    throw UnimplementedError();
+  }
 }
