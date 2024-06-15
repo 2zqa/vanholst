@@ -9,6 +9,7 @@ import 'package:sembast_web/sembast_web.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 import 'package:vanholst/src/utils/get_impersonating_headers.dart';
+import 'package:vanholst/src/utils/retrieve_between.dart';
 
 class WordpressAuthRepository implements AuthRepository {
   WordpressAuthRepository(this.db);
@@ -130,19 +131,13 @@ class WordpressAuthRepository implements AuthRepository {
         !cookieHeader.contains('wordpress_logged_in')) {
       throw Exception('Missing required cookies');
     }
+    // wordpress_sec_b1d66a434e254744aeb0809336998e7b=marijnkok%7C1718576029%7CB4VUAqcPM5v2526ESVW2Y57sfM5pCSUiuGsgt9Ysepk%7C0b95d392736a4342ac0dd03097b68398349a1166d3730c621a4b518c50223f18; path=/wp-content/plugins; secure; HttpOnly,wordpress_sec_b1d66a434e254744aeb0809336998e7b=marijnkok%7C1718576029%7CB4VUAqcPM5v2526ESVW2Y57sfM5pCSUiuGsgt9Ysepk%7C0b95d392736a4342ac0dd03097b68398349a1166d3730c621a4b518c50223f18; path=/wp-admin; secure; HttpOnly,wordpress_logged_in_b1d66a434e254744aeb0809336998e7b=marijnkok%7C1718576029%7CB4VUAqcPM5v2526ESVW2Y57sfM5pCSUiuGsgt9Ysepk%7C17bf903d24f09b146e45177d6b2ed30aeaada4f0f592f25cf73e0bbe47c8f17f; path=/; secure; HttpOnly,mailpoet_subscriber=%7B%22subscriber_id%22%3A65%7D; expires=Mon, 12 Jun 2034 22:13:49 GMT; Max-Age=315360000; path=/
+    final hash = cookieHeader.retrieveBetween("wordpress_sec_", "=");
+    final sec = cookieHeader.retrieveBetween("wordpress_sec_$hash=", ";");
+    final loggedIn =
+        cookieHeader.retrieveBetween("wordpress_logged_in_$hash", ";");
 
-    final cookies = cookieHeader.split(RegExp(r'\s*,\s*'));
-
-    // TODO: fix retrieval logic
-    final secSplit = cookies
-        .firstWhere((cookie) => cookie.startsWith('wordpress_sec'))
-        .split('=');
-    final hash = secSplit[0].split('_').last;
-    final loggedIn = cookies
-        .firstWhere((cookie) => cookie.startsWith('wordpress_logged_in'))
-        .split('=')[1];
-
-    return (secSplit[1], loggedIn, hash);
+    return (sec, loggedIn, hash);
   }
 
   Future<http.Response> _getVanHolstLoginResponse() async {
