@@ -16,7 +16,7 @@ final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
   return isFake ? FakeLogbookRepository() : WordpressLogbookRepository(appUser);
 });
 
-final logbookFutureProvider = FutureProvider<List<LogbookEntry>>((ref) {
+final logbookEntryListProvider = FutureProvider<List<LogbookEntry>>((ref) {
   final logbookRepository = ref.watch(logbookRepositoryProvider);
   return logbookRepository.getLogbookEntryList();
 });
