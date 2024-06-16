@@ -13,14 +13,15 @@ class LogbookEntry {
   final String? infoForCoach;
   final String date;
   final String shortDayName;
-  final String? program;
+  final String program;
   final String? sleep;
   final String? timings;
   final String? performance;
   final String? circumstances;
-  final String km;
-  final String? link;
+  final String? km;
+  final String link;
   final String? feedbackCoach;
+  final String timestamp;
 
   const LogbookEntry({
     required this.userId,
@@ -28,14 +29,15 @@ class LogbookEntry {
     this.infoForCoach,
     required this.date, // in format 'dd-mm-yyyy'
     required this.shortDayName, // short day name, e.g. 'ma'
-    this.program,
+    required this.program,
     this.sleep,
     this.timings,
     this.performance,
     this.circumstances,
-    required this.km,
-    this.link,
+    this.km,
+    required this.link,
     this.feedbackCoach,
+    required this.timestamp,
   });
 
   /// Creates a [LogbookEntry] object from the given [schema].
@@ -54,9 +56,10 @@ class LogbookEntry {
         timings = schema[7], // tijden
         performance = schema[8], // uitvoering
         circumstances = schema[9], // omstandigheden
-        km = schema[10]!, // km
+        km = schema[10], // km // CAN BE NULL
         link = schema[11], // link
-        feedbackCoach = schema[12]; // Feedback_coach
+        feedbackCoach = schema[12], // Feedback_coach
+        timestamp = schema[13];
 
   Map<String, dynamic> toMap() {
     return {
@@ -91,6 +94,7 @@ class LogbookEntry {
       km: map['km'] ?? '',
       link: map['link'] ?? '',
       feedbackCoach: map['feedbackCoach'] ?? '',
+      timestamp: map['timestamp'] ?? '',
     );
   }
 
@@ -116,7 +120,8 @@ class LogbookEntry {
         other.circumstances == circumstances &&
         other.km == km &&
         other.link == link &&
-        other.feedbackCoach == feedbackCoach;
+        other.feedbackCoach == feedbackCoach &&
+        other.timestamp == timestamp;
   }
 
   @override
@@ -133,6 +138,7 @@ class LogbookEntry {
         circumstances.hashCode ^
         km.hashCode ^
         link.hashCode ^
-        feedbackCoach.hashCode;
+        feedbackCoach.hashCode ^
+        timestamp.hashCode;
   }
 }
