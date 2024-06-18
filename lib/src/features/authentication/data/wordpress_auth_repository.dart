@@ -95,7 +95,7 @@ class WordpressAuthRepository implements AuthRepository {
       }
       return (nonce, formID);
     } else {
-      throw Exception('Failed to load page');
+      throw Exception('Failed to load login page');
     }
   }
 

@@ -152,7 +152,7 @@ class WordpressLogbookRepository implements LogbookRepository {
       }
       return (nonce, tableId);
     } else {
-      throw Exception('Failed to load page');
+      throw Exception('Failed to load logbook page');
     }
   }
 
@@ -193,7 +193,7 @@ class WordpressLogbookRepository implements LogbookRepository {
       final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       return jsonResponse['data'];
     } else {
-      throw Exception('Failed to load page');
+      throw Exception('Failed to query logbook data');
     }
   }
 }
