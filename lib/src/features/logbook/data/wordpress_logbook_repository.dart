@@ -167,6 +167,7 @@ class WordpressLogbookRepository implements LogbookRepository {
   Future<http.Response> _getVanHolstLogbookResponse(AppUser user) {
     final url = Uri.parse("https://www.vanholstcoaching.nl/schema-en-logboek/");
     final headers = getImpersonatingHeaders(cookie: user.cookie);
+    // TODO: check if 404, then re-authenticate
     return http.get(url, headers: headers);
   }
 
