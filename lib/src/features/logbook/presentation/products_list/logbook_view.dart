@@ -12,8 +12,8 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 
 /// A widget that displays the list of products that match the search query.
-class ProductsGrid extends ConsumerWidget {
-  const ProductsGrid({super.key});
+class LogbookView extends ConsumerWidget {
+  const LogbookView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
