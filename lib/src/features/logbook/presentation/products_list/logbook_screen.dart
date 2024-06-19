@@ -6,14 +6,14 @@ import 'package:vanholst/src/features/logbook/presentation/products_list/product
 import 'package:vanholst/src/features/logbook/presentation/products_list/products_search_text_field.dart';
 
 /// Shows the list of products with a search field at the top.
-class ProductsListScreen extends StatefulWidget {
-  const ProductsListScreen({super.key});
+class LogbookScreen extends StatefulWidget {
+  const LogbookScreen({super.key});
 
   @override
-  State<ProductsListScreen> createState() => _ProductsListScreenState();
+  State<LogbookScreen> createState() => _LogbookScreenState();
 }
 
-class _ProductsListScreenState extends State<ProductsListScreen> {
+class _LogbookScreenState extends State<LogbookScreen> {
   // * Use a [ScrollController] to register a listener that dismisses the
   // * on-screen keyboard when the user scrolls.
   // * This is needed because this page has a search field that the user can

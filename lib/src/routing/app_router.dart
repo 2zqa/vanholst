@@ -5,7 +5,7 @@ import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/presentation/account/account_screen.dart';
 import 'package:vanholst/src/features/authentication/presentation/sign_in/sign_in_screen.dart';
 import 'package:vanholst/src/features/logbook/presentation/product_screen/product_screen.dart';
-import 'package:vanholst/src/features/logbook/presentation/products_list/products_list_screen.dart';
+import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_screen.dart';
 import 'package:vanholst/src/routing/go_router_refresh_stream.dart';
 import 'package:vanholst/src/routing/not_found_screen.dart';
 
@@ -37,7 +37,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         name: AppRoute.home.name,
-        builder: (context, state) => const ProductsListScreen(),
+        builder: (context, state) => const LogbookScreen(),
         routes: [
           GoRoute(
             path: 'product/:id',
