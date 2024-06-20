@@ -51,10 +51,7 @@ class _LogbookScreenState extends State<LogbookScreen> {
             padding: EdgeInsets.all(Sizes.p16),
             child: ProductsSearchTextField(),
           ),
-          ResponsiveSliverCenter(
-            padding: EdgeInsets.all(Sizes.p16),
-            child: LogbookView(),
-          ),
+          LogbookView(),
         ],
       ),
     );
