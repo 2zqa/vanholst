@@ -3,8 +3,9 @@ import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 
 /// Used to show a single product inside a card.
-class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.product, this.onPressed});
+class LogbookEntryListItem extends StatelessWidget {
+  const LogbookEntryListItem(
+      {super.key, required this.product, this.onPressed});
   final LogbookEntry product;
   final VoidCallback? onPressed;
 

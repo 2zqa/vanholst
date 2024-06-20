@@ -5,7 +5,7 @@ import 'package:vanholst/src/common_widgets/async_sliver_value_widget.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
-import 'package:vanholst/src/features/logbook/presentation/products_list/product_card.dart';
+import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_entry_list_item.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 
@@ -43,7 +43,7 @@ class LogbookEntryList extends StatelessWidget {
       itemCount: entries.length,
       itemBuilder: (_, index) {
         final product = entries[index];
-        return ProductCard(
+        return LogbookEntryListItem(
           product: product,
           onPressed: () => context.goNamed(
             AppRoute.product.name,
