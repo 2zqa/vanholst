@@ -39,15 +39,17 @@ class LogbookEntryList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverList.builder(
+    return SliverList.separated(
       itemCount: entries.length,
+      separatorBuilder: (context, index) =>
+          const ResponsiveCenter(child: Divider(indent: 16, endIndent: 16)),
       itemBuilder: (_, index) {
-        final product = entries[index];
+        final entry = entries[index];
         return LogbookEntryListItem(
-          product: product,
+          entry: entry,
           onPressed: () => context.goNamed(
             AppRoute.product.name,
-            pathParameters: {'id': product.id},
+            pathParameters: {'id': entry.id},
           ),
         );
       },

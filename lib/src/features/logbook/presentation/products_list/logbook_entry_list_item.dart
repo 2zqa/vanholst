@@ -1,37 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:vanholst/src/constants/app_sizes.dart';
+import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
+import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Used to show a single product inside a card.
 class LogbookEntryListItem extends StatelessWidget {
-  const LogbookEntryListItem(
-      {super.key, required this.product, this.onPressed});
-  final LogbookEntry product;
+  const LogbookEntryListItem({super.key, required this.entry, this.onPressed});
+  final LogbookEntry entry;
   final VoidCallback? onPressed;
-
-  // * Keys for testing using find.byKey()
-  static const productCardKey = Key('product-card');
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        key: productCardKey,
+    final program = entry.program;
+    return ResponsiveCenter(
+      child: ListTile(
+        leading: program.isEmpty
+            ? const SizedBox.shrink()
+            : const Icon(Icons.directions_run),
         onTap: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.all(Sizes.p16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(product.id, style: Theme.of(context).textTheme.titleLarge),
-              gapH24,
-              Text(
-                product.performance ?? 'Unknown',
-                style: Theme.of(context).textTheme.bodySmall,
-              )
-            ],
-          ),
-        ),
+        title: program.isEmpty
+            ? Text('No program'.hardcoded,
+                style: const TextStyle(fontStyle: FontStyle.italic))
+            : Text(program),
+        subtitle: Text(entry.date),
       ),
     );
   }
