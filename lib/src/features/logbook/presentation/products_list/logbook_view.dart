@@ -45,11 +45,13 @@ class LogbookEntryList extends StatelessWidget {
           const ResponsiveCenter(child: Divider(indent: 16, endIndent: 16)),
       itemBuilder: (_, index) {
         final entry = entries[index];
-        return LogbookEntryListItem(
-          entry: entry,
-          onPressed: () => context.goNamed(
-            AppRoute.product.name,
-            pathParameters: {'id': entry.id},
+        return ResponsiveCenter(
+          child: LogbookEntryListItem(
+            entry: entry,
+            onPressed: () => context.goNamed(
+              AppRoute.product.name,
+              pathParameters: {'id': entry.id},
+            ),
           ),
         );
       },

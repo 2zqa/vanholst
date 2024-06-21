@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
@@ -13,20 +12,18 @@ class LogbookEntryListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final program = entry.program;
     final isBike = entry.program.contains('fiets');
-    return ResponsiveCenter(
-      child: ListTile(
-        leading: program.isEmpty
-            ? const SizedBox.shrink()
-            : isBike
-                ? const Icon(Icons.directions_bike)
-                : const Icon(Icons.directions_run),
-        onTap: onPressed,
-        title: program.isEmpty
-            ? Text('No program'.hardcoded,
-                style: const TextStyle(fontStyle: FontStyle.italic))
-            : Text(program),
-        subtitle: Text(entry.date),
-      ),
+    return ListTile(
+      leading: program.isEmpty
+          ? const SizedBox.shrink()
+          : isBike
+              ? const Icon(Icons.directions_bike)
+              : const Icon(Icons.directions_run),
+      onTap: onPressed,
+      title: program.isEmpty
+          ? Text('No program'.hardcoded,
+              style: const TextStyle(fontStyle: FontStyle.italic))
+          : Text(program),
+      subtitle: Text(entry.date),
     );
   }
 }
