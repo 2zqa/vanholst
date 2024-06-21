@@ -10,8 +10,8 @@ import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Shows the product page for a given product ID.
-class ProductScreen extends StatelessWidget {
-  const ProductScreen({super.key, required this.productId});
+class LogbookEntryScreen extends StatelessWidget {
+  const LogbookEntryScreen({super.key, required this.productId});
   final String productId;
 
   @override
