@@ -49,7 +49,7 @@ class LogbookEntryList extends StatelessWidget {
           child: LogbookEntryListItem(
             entry: entry,
             onPressed: () => context.goNamed(
-              AppRoute.product.name,
+              AppRoute.logbookEntry.name,
               pathParameters: {'id': entry.id},
             ),
           ),

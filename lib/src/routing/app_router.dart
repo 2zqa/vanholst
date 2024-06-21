@@ -11,7 +11,7 @@ import 'package:vanholst/src/routing/not_found_screen.dart';
 
 enum AppRoute {
   home,
-  product,
+  logbookEntry,
   account,
   signIn,
 }
@@ -40,11 +40,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const LogbookScreen(),
         routes: [
           GoRoute(
-            path: 'product/:id',
-            name: AppRoute.product.name,
+            path: 'entry/:id',
+            name: AppRoute.logbookEntry.name,
             builder: (context, state) {
-              final productId = state.pathParameters['id']!;
-              return LogbookEntryScreen(productId: productId);
+              final entryId = state.pathParameters['id']!;
+              return LogbookEntryScreen(entryId: entryId);
             },
           ),
           GoRoute(

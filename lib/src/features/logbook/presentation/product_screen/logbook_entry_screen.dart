@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vanholst/src/common_widgets/alert_dialogs.dart';
 import 'package:vanholst/src/common_widgets/async_value_widget.dart';
 import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
-import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
@@ -11,30 +11,30 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Shows the product page for a given product ID.
 class LogbookEntryScreen extends StatelessWidget {
-  const LogbookEntryScreen({super.key, required this.productId});
-  final String productId;
+  const LogbookEntryScreen({super.key, required this.entryId});
+  final String entryId;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
+      floatingActionButton: Consumer(
+        child: const Icon(Icons.edit),
+        builder: (context, ref, child) {
+          return FloatingActionButton(
+            onPressed: () => showNotImplementedAlertDialog(context: context),
+            child: child,
+          );
+        },
+      ),
       body: Consumer(
         builder: (context, ref, _) {
-          final logbookEntryValue = ref.watch(logbookEntryProvider(productId));
+          final logbookEntryValue = ref.watch(logbookEntryProvider(entryId));
           return AsyncValueWidget(
             value: logbookEntryValue,
-            data: (product) => product == null
-                ? EmptyPlaceholderWidget(
-                    message: 'Product not found'.hardcoded,
-                  )
-                : CustomScrollView(
-                    slivers: [
-                      ResponsiveSliverCenter(
-                        padding: const EdgeInsets.all(Sizes.p16),
-                        child: ProductDetails(product: product),
-                      ),
-                    ],
-                  ),
+            data: (entry) => entry == null
+                ? EmptyPlaceholderWidget(message: 'Entry not found'.hardcoded)
+                : LogbookEntryDetails(entry: entry),
           );
         },
       ),
@@ -42,27 +42,67 @@ class LogbookEntryScreen extends StatelessWidget {
   }
 }
 
-/// Shows all the product details along with actions to:
-/// - leave a review
-/// - add to cart
-class ProductDetails extends StatelessWidget {
-  const ProductDetails({super.key, required this.product});
-  final LogbookEntry product;
+class LogbookEntryDetails extends StatelessWidget {
+  const LogbookEntryDetails({super.key, required this.entry});
+  final LogbookEntry entry;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(Sizes.p16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(product.id, style: Theme.of(context).textTheme.titleLarge),
+    return ListView(
+      padding: const EdgeInsets.all(16.0),
+      children: <Widget>[
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+                "${'Program for'.hardcoded} ${entry.shortDayName} ${entry.date}",
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(entry.program, style: const TextStyle(fontSize: 20)),
+            gapH24,
+            Text('Info for Coach'.hardcoded,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(entry.infoForCoach ?? 'N/A',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontStyle:
+                        entry.infoForCoach != null ? null : FontStyle.italic)),
             gapH8,
-            Text(product.performance ?? 'Unknown'),
+            Text('${'Sleep'.hardcoded}: ${entry.sleep ?? 'N/A'}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: entry.sleep != null ? null : FontStyle.italic)),
+            Text('${'Timings'.hardcoded}: ${entry.timings ?? 'N/A'}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle:
+                        entry.timings != null ? null : FontStyle.italic)),
+            gapH8,
+            Text('Performance'.hardcoded,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(entry.performance ?? 'N/A',
+                style: TextStyle(
+                    fontSize: 20,
+                    fontStyle:
+                        entry.performance != null ? null : FontStyle.italic)),
+            gapH8,
+            Text(
+                '${'Circumstances'.hardcoded}: ${entry.circumstances ?? 'N/A'}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle:
+                        entry.circumstances != null ? null : FontStyle.italic)),
           ],
-        ),
-      ),
+        )
+      ],
     );
   }
 }
