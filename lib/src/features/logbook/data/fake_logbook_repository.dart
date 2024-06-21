@@ -7,13 +7,13 @@ class FakeLogbookRepository implements LogbookRepository {
 
   @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     return Future.value(_entries);
   }
 
   @override
   Future<LogbookEntry?> getLogbookEntry(String id) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     for (var entry in _entries) {
       if (entry.id == id) return Future.value(entry);
@@ -23,7 +23,7 @@ class FakeLogbookRepository implements LogbookRepository {
 
   @override
   Future<void> updateLogbookEntry(LogbookEntry entry) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
     final index = _entries.indexWhere((e) => e.id == entry.id);
     if (index != -1) {
       _entries[index] = entry;

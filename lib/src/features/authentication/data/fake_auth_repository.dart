@@ -17,7 +17,7 @@ class FakeAuthRepository implements AuthRepository {
   @override
   Future<void> signInWithUsernameAndPassword(
       String username, String password) async {
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     _authState.value = AppUser(
       username: username,
       hash: '',
