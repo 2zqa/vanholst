@@ -62,44 +62,46 @@ class LogbookEntryDetails extends StatelessWidget {
                 )),
             Text(entry.program, style: const TextStyle(fontSize: 20)),
             gapH24,
-            Text('Info for Coach'.hardcoded,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
-            Text(entry.infoForCoach ?? 'N/A',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontStyle:
-                        entry.infoForCoach != null ? null : FontStyle.italic)),
-            gapH8,
-            Text('${'Sleep'.hardcoded}: ${entry.sleep ?? 'N/A'}',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontStyle: entry.sleep != null ? null : FontStyle.italic)),
-            Text('${'Timings'.hardcoded}: ${entry.timings ?? 'N/A'}',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontStyle:
-                        entry.timings != null ? null : FontStyle.italic)),
-            gapH8,
             Text('Performance'.hardcoded,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            Text(entry.performance ?? 'N/A',
+            Text(entry.performance ?? 'Not provided'.hardcoded,
                 style: TextStyle(
                     fontSize: 20,
                     fontStyle:
                         entry.performance != null ? null : FontStyle.italic)),
             gapH8,
             Text(
-                '${'Circumstances'.hardcoded}: ${entry.circumstances ?? 'N/A'}',
+                '${'Circumstances'.hardcoded}: ${entry.circumstances ?? 'not provided'.hardcoded}',
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle:
                         entry.circumstances != null ? null : FontStyle.italic)),
+            gapH8,
+            Text('Info for Coach'.hardcoded,
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )),
+            Text(entry.infoForCoach ?? 'Not provided'.hardcoded,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontStyle:
+                        entry.infoForCoach != null ? null : FontStyle.italic)),
+            gapH8,
+            Text(
+                '${'Sleep'.hardcoded}: ${entry.sleep ?? 'not provided'.hardcoded}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle: entry.sleep != null ? null : FontStyle.italic)),
+            Text(
+                '${'Timings'.hardcoded}: ${entry.timings ?? 'not provided'.hardcoded}',
+                style: TextStyle(
+                    fontSize: 16,
+                    fontStyle:
+                        entry.timings != null ? null : FontStyle.italic)),
           ],
         )
       ],
