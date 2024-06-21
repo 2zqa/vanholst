@@ -12,11 +12,14 @@ class LogbookEntryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final program = entry.program;
+    final isBike = entry.program.contains('fiets');
     return ResponsiveCenter(
       child: ListTile(
         leading: program.isEmpty
             ? const SizedBox.shrink()
-            : const Icon(Icons.directions_run),
+            : isBike
+                ? const Icon(Icons.directions_bike)
+                : const Icon(Icons.directions_run),
         onTap: onPressed,
         title: program.isEmpty
             ? Text('No program'.hardcoded,
