@@ -8,10 +8,12 @@ class LogbookEntryListItem extends StatelessWidget {
     super.key,
     required this.entry,
     this.onPressed,
+    this.onEdit,
     this.selected = false,
   });
   final LogbookEntry entry;
   final VoidCallback? onPressed;
+  final VoidCallback? onEdit;
   final bool selected;
 
   @override
@@ -22,6 +24,12 @@ class LogbookEntryListItem extends StatelessWidget {
       selected: selected,
       selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
       selectedColor: Theme.of(context).colorScheme.onPrimaryContainer,
+      trailing: IconButton(
+        icon: const Icon(Icons.edit),
+        color:
+            Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.5),
+        onPressed: onEdit,
+      ),
       leading: program.isEmpty
           ? const SizedBox.shrink()
           : isBike
@@ -32,7 +40,7 @@ class LogbookEntryListItem extends StatelessWidget {
           ? Text('No program'.hardcoded,
               style: const TextStyle(fontStyle: FontStyle.italic))
           : Text(program),
-      subtitle: Text(entry.date),
+      subtitle: Text("${entry.shortDayName} ${entry.date}"),
     );
   }
 }
