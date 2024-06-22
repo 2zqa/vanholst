@@ -52,7 +52,9 @@ class LogbookEntry {
     );
   }
 
-  /// link is in format "<a href='https://connect.garmin.com/modern/activity/88888888888' rel='nofollow' target='_blank'><button class=''>GPS</button></a>", or a blank string. Parses the link to get the actual URL.
+  /// [link] is in format
+  /// "`<a href='https://connect.garmin.com/modern/activity/88888888888' rel='nofollow' target='_blank'><button class=''>GPS</button></a>`"
+  /// or a blank string. Parses the a tag to get the actual URL.
   Uri get linkUri {
     final match = RegExp(r"href='(.*?)'").firstMatch(link);
     if (match == null) {
