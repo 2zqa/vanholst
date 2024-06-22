@@ -84,6 +84,36 @@ class LogbookEntry {
         feedbackCoach = schema[12], // Feedback_coach
         timestamp = schema[13];
 
+  String toFormData(String tableNonce, int tableId) {
+    final formData = {
+      'action': 'wdt_save_table_frontend',
+      'wdtNonce': tableNonce,
+      'isDuplicate': 'false',
+      'formdata[table_id]': tableId.toString(),
+      'formdata[userid]': userId,
+      'formdata[wdt_ID]': id,
+      'formdata[info_voor_coach]': infoForCoach ?? '',
+      'formdata[dag]': date,
+      'formdata[d]': shortDayName,
+      'formdata[programma]': program,
+      'formdata[Slaap]': sleep ?? '',
+      'formdata[tijden]': timings ?? '',
+      'formdata[uitvoering]': performance ?? '',
+      'formdata[omstandigheden]': circumstances ?? '',
+      'formdata[km]': km ?? '',
+      'formdata[link]': linkUri.toString(),
+      'formdata[Feedback_coach]': feedbackCoach ?? '',
+      'formdata[timestamp]': timestamp,
+    };
+
+    final encodedFormData = formData.entries
+        .map((entry) =>
+            '${Uri.encodeComponent(entry.key)}=${Uri.encodeComponent(entry.value)}')
+        .join('&');
+
+    return encodedFormData;
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'userId': userId,
