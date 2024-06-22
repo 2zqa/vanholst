@@ -27,7 +27,7 @@ class LogbookEntry {
     required this.userId,
     required this.id,
     this.infoForCoach,
-    required this.date, // in format 'dd-mm-yyyy'
+    required this.date, // in format 'dd/mm/yyyy'
     required this.shortDayName, // short day name, e.g. 'ma'
     required this.program,
     this.sleep,
@@ -39,6 +39,18 @@ class LogbookEntry {
     this.feedbackCoach,
     required this.timestamp,
   });
+
+  DateTime? get dateTime {
+    final parts = date.split('/');
+    if (parts.length != 3) {
+      return null;
+    }
+    return DateTime(
+      int.parse(parts[2]),
+      int.parse(parts[1]),
+      int.parse(parts[0]),
+    );
+  }
 
   /// Creates a [LogbookEntry] object from the given [schema].
   ///
