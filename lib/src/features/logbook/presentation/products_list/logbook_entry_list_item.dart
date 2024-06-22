@@ -4,15 +4,24 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Used to show a single product inside a card.
 class LogbookEntryListItem extends StatelessWidget {
-  const LogbookEntryListItem({super.key, required this.entry, this.onPressed});
+  const LogbookEntryListItem({
+    super.key,
+    required this.entry,
+    this.onPressed,
+    this.selected = false,
+  });
   final LogbookEntry entry;
   final VoidCallback? onPressed;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
     final program = entry.program;
     final isBike = entry.program.contains('fiets');
     return ListTile(
+      selected: selected,
+      selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
+      selectedColor: Theme.of(context).colorScheme.onPrimaryContainer,
       leading: program.isEmpty
           ? const SizedBox.shrink()
           : isBike

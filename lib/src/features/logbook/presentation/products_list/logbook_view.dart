@@ -8,6 +8,7 @@ import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_entry_list_item.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
+import 'package:vanholst/src/utils/is_today.dart';
 
 /// A widget that displays the list of products that match the search query.
 class LogbookView extends ConsumerWidget {
@@ -48,6 +49,7 @@ class LogbookEntryList extends StatelessWidget {
         return ResponsiveCenter(
           child: LogbookEntryListItem(
             entry: entry,
+            selected: entry.dateTime?.isToday == true,
             onPressed: () => context.goNamed(
               AppRoute.logbookEntry.name,
               pathParameters: {'id': entry.id},
