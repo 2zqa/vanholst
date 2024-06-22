@@ -52,6 +52,15 @@ class LogbookEntry {
     );
   }
 
+  /// link is in format "<a href='https://connect.garmin.com/modern/activity/88888888888' rel='nofollow' target='_blank'><button class=''>GPS</button></a>", or a blank string. Parses the link to get the actual URL.
+  Uri get linkUri {
+    final match = RegExp(r"href='(.*?)'").firstMatch(link);
+    if (match == null) {
+      return Uri();
+    }
+    return Uri.parse(match.group(1)!);
+  }
+
   /// Creates a [LogbookEntry] object from the given [schema].
   ///
   /// The [schema] parameter is a list of thirteen elements returned by the
