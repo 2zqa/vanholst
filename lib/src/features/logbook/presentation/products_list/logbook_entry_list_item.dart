@@ -8,12 +8,12 @@ class LogbookEntryListItem extends StatelessWidget {
     super.key,
     required this.entry,
     this.onPressed,
-    this.onEdit,
+    this.onEditPressed,
     this.selected = false,
   });
   final LogbookEntry entry;
   final VoidCallback? onPressed;
-  final VoidCallback? onEdit;
+  final VoidCallback? onEditPressed;
   final bool selected;
 
   @override
@@ -28,7 +28,7 @@ class LogbookEntryListItem extends StatelessWidget {
         icon: const Icon(Icons.edit),
         color:
             Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.5),
-        onPressed: onEdit,
+        onPressed: onEditPressed,
       ),
       leading: program.isEmpty
           ? const SizedBox.shrink()

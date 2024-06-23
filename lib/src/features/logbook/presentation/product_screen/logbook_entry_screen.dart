@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vanholst/src/common_widgets/alert_dialogs.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/async_value_widget.dart';
 import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
@@ -8,6 +8,7 @@ import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
+import 'package:vanholst/src/routing/app_router.dart';
 
 /// Shows the product page for a given product ID.
 class LogbookEntryScreen extends StatelessWidget {
@@ -22,7 +23,10 @@ class LogbookEntryScreen extends StatelessWidget {
         child: const Icon(Icons.edit),
         builder: (context, ref, child) {
           return FloatingActionButton(
-            onPressed: () => showNotImplementedAlertDialog(context: context),
+            onPressed: () => context.goNamed(
+              AppRoute.logbookEntryEdit.name,
+              pathParameters: {'id': entryId},
+            ),
             child: child,
           );
         },
