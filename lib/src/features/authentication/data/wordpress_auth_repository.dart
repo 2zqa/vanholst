@@ -14,7 +14,7 @@ import 'package:vanholst/src/utils/retrieve_between.dart';
 class WordpressAuthRepository implements AuthRepository {
   WordpressAuthRepository(this.db);
   final Database db;
-  final store = StoreRef.main();
+  final store = StoreRef<String, String>.main();
   static const _userKey = 'user';
   AppUser? _currentUser;
 
@@ -35,7 +35,7 @@ class WordpressAuthRepository implements AuthRepository {
   }
 
   Future<AppUser?> _fetchUser() async {
-    final record = await store.record(_userKey).get(db) as String?;
+    final record = await store.record(_userKey).get(db);
     if (record == null) {
       return null;
     }
@@ -47,7 +47,7 @@ class WordpressAuthRepository implements AuthRepository {
     final record = store.record(_userKey);
     return record.onSnapshot(db).map((snapshot) {
       if (snapshot != null) {
-        return AppUser.fromJson(snapshot.value as String);
+        return AppUser.fromJson(snapshot.value);
       } else {
         return null;
       }
