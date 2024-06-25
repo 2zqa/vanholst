@@ -84,7 +84,7 @@ class LogbookEntry {
         feedbackCoach = schema[12], // Feedback_coach
         timestamp = schema[13];
 
-  String toFormData(String tableNonce, int tableId) {
+  String toFormData(String tableNonce, String tableId) {
     final formData = {
       'action': 'wdt_save_table_frontend',
       'wdtNonce': tableNonce,

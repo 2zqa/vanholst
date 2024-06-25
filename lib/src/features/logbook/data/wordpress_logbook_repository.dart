@@ -131,9 +131,23 @@ class WordpressLogbookRepository implements LogbookRepository {
   }
 
   @override
-  Future<void> updateLogbookEntry(LogbookEntry entry) {
-    // TODO: implement updateLogbookEntry
-    throw UnimplementedError();
+  Future<void> updateLogbookEntry(LogbookEntry entry) async {
+    final user = appUser;
+    if (user == null) {
+      throw Exception('User not logged in');
+    }
+    final (tableNonce, tableId) = await _getNonceAndTableID(user);
+    final url = Uri.parse(_vanholstAdminUri);
+    final String formData = entry.toFormData(tableNonce, tableId);
+    final headers = getImpersonatingSchemaHeaders(authCookie: user.cookie);
+    final response = await http.post(
+      url,
+      body: formData,
+      headers: headers,
+    );
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update logbook entry');
+    }
   }
 
   Future<(String, String)> _getNonceAndTableID(AppUser appUser) async {
