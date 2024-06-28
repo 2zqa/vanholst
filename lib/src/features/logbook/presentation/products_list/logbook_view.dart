@@ -16,7 +16,7 @@ class LogbookView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logbookValue = ref.watch(logbookEntryListProvider);
+    final logbookValue = ref.watch(logbookNotifierProvider);
     return AsyncValueSliverWidget(
       value: logbookValue,
       data: (entries) => entries.isEmpty

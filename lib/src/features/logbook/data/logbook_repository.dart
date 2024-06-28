@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
@@ -16,13 +18,35 @@ final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
   return isFake ? FakeLogbookRepository() : WordpressLogbookRepository(appUser);
 });
 
-final logbookEntryListProvider = FutureProvider<List<LogbookEntry>>((ref) {
-  final logbookRepository = ref.watch(logbookRepositoryProvider);
-  return logbookRepository.getLogbookEntryList();
-});
+class LogbookNotifier extends AsyncNotifier<List<LogbookEntry>> {
+  late final LogbookRepository _logbookRepository;
+
+  @override
+  Future<List<LogbookEntry>> build() {
+    _logbookRepository = ref.watch(logbookRepositoryProvider);
+    return _logbookRepository.getLogbookEntryList();
+  }
+
+  Future<void> updateLogbookEntry(LogbookEntry entry) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _logbookRepository.updateLogbookEntry(entry);
+      return _logbookRepository.getLogbookEntryList();
+    });
+  }
+}
+
+final logbookNotifierProvider =
+    AsyncNotifierProvider<LogbookNotifier, List<LogbookEntry>>(
+        LogbookNotifier.new);
 
 final logbookEntryProvider =
-    FutureProvider.family<LogbookEntry?, String>((ref, id) {
-  final logbookRepository = ref.watch(logbookRepositoryProvider);
-  return logbookRepository.getLogbookEntry(id);
+    FutureProvider.family<LogbookEntry?, String>((ref, id) async {
+  final logbook = await ref.watch(logbookNotifierProvider.future);
+  for (var entry in logbook) {
+    if (entry.id == id) {
+      return entry;
+    }
+  }
+  return null;
 });
