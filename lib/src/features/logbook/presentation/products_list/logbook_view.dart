@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/async_sliver_value_widget.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
+import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_entry_list_item.dart';
@@ -42,8 +43,8 @@ class LogbookEntryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverList.separated(
       itemCount: entries.length,
-      separatorBuilder: (context, index) =>
-          const ResponsiveCenter(child: Divider(indent: 16, endIndent: 16)),
+      separatorBuilder: (context, index) => const ResponsiveCenter(
+          child: Divider(indent: Sizes.p16, endIndent: Sizes.p16)),
       itemBuilder: (_, index) {
         final entry = entries[index];
         return ResponsiveCenter(
