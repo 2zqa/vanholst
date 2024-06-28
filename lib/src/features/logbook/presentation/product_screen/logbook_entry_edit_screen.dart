@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/common_widgets/error_message_widget.dart';
+import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
+import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
+import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 class LogbookEntryEditScreen extends ConsumerWidget {
   const LogbookEntryEditScreen({super.key, required this.entryId});
@@ -100,7 +103,43 @@ class _LogbookEntryEditContentsState
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Edit logbook entry');
+    return ResponsiveScrollableCard(
+      child: FocusScope(
+        node: _node,
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              gapH8,
+              // info for coach field
+              TextFormField(
+                controller: _infoForCoachController,
+                decoration: InputDecoration(
+                  labelText: 'Info for coach'.hardcoded,
+                  // enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+              // TODO: implement decimal formatting https://stackoverflow.com/a/51739086
+              // Or maybe use stepper buttons or draggable bar
+              TextFormField(
+                controller: _sleepController,
+                keyboardType: TextInputType.number,
+                // inputFormatters: const [],
+                decoration: InputDecoration(
+                  labelText: 'Hours of sleep'.hardcoded,
+                  // enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
