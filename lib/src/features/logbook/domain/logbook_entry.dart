@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 /// * The logbook entry identifier is an important concept and can have its own type.
 typedef LogbookEntryID = String;
@@ -193,5 +194,39 @@ class LogbookEntry {
         link.hashCode ^
         feedbackCoach.hashCode ^
         timestamp.hashCode;
+  }
+
+  LogbookEntry copyWith({
+    String? userId,
+    LogbookEntryID? id,
+    ValueGetter<String?>? infoForCoach,
+    String? date,
+    String? shortDayName,
+    String? program,
+    ValueGetter<String?>? sleep,
+    ValueGetter<String?>? timings,
+    ValueGetter<String?>? performance,
+    ValueGetter<String?>? circumstances,
+    ValueGetter<String?>? km,
+    String? link,
+    ValueGetter<String?>? feedbackCoach,
+    String? timestamp,
+  }) {
+    return LogbookEntry(
+      userId: userId ?? this.userId,
+      id: id ?? this.id,
+      infoForCoach: infoForCoach != null ? infoForCoach() : this.infoForCoach,
+      date: date ?? this.date,
+      shortDayName: shortDayName ?? this.shortDayName,
+      program: program ?? this.program,
+      sleep: sleep != null ? sleep() : this.sleep,
+      timings: timings != null ? timings() : this.timings,
+      performance: performance != null ? performance() : this.performance,
+      circumstances: circumstances != null ? circumstances() : this.circumstances,
+      km: km != null ? km() : this.km,
+      link: link ?? this.link,
+      feedbackCoach: feedbackCoach != null ? feedbackCoach() : this.feedbackCoach,
+      timestamp: timestamp ?? this.timestamp,
+    );
   }
 }
