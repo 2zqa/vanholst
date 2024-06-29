@@ -13,7 +13,7 @@ import 'package:vanholst/src/routing/app_router.dart';
 /// Shows the product page for a given product ID.
 class LogbookEntryScreen extends StatelessWidget {
   const LogbookEntryScreen({super.key, required this.entryId});
-  final String entryId;
+  final LogbookEntryID entryId;
 
   @override
   Widget build(BuildContext context) {

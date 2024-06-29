@@ -16,7 +16,7 @@ import 'package:vanholst/src/utils/async_value_ui.dart';
 
 class LogbookEntryEditScreen extends ConsumerWidget {
   const LogbookEntryEditScreen({super.key, required this.entryId});
-  final String entryId;
+  final LogbookEntryID entryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
