@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:vanholst/src/common_widgets/error_message_widget.dart';
+import 'package:vanholst/src/common_widgets/primary_button.dart';
 import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
+import 'package:vanholst/src/features/logbook/presentation/product_screen/logbook_entry_edit_screen_controller.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
+import 'package:vanholst/src/routing/app_router.dart';
+import 'package:vanholst/src/utils/async_value_ui.dart';
 
 class LogbookEntryEditScreen extends ConsumerWidget {
   const LogbookEntryEditScreen({super.key, required this.entryId});
@@ -19,9 +25,15 @@ class LogbookEntryEditScreen extends ConsumerWidget {
       appBar: const HomeAppBar(),
       body: Center(
         child: value.when(
-          data: (entry) => entry != null
-              ? LogbookEntryEditContents(entry: entry)
-              : const LogbookEntryNotFoundContents(),
+          data: (entry) => entry == null
+              ? EmptyPlaceholderWidget(message: 'Entry not found'.hardcoded)
+              : LogbookEntryEditContents(
+                  entry: entry,
+                  onSubmitted: () => context.goNamed(
+                    AppRoute.logbookEntry.name,
+                    pathParameters: {'id': entryId},
+                  ),
+                ),
           error: (e, st) => Center(child: ErrorMessageWidget(e.toString())),
           loading: () => const Center(child: CircularProgressIndicator()),
         ),
@@ -67,6 +79,18 @@ class _LogbookEntryEditContentsState
   var _submitted = false;
 
   @override
+  void initState() {
+    super.initState();
+    _infoForCoachController.text = widget.entry.infoForCoach ?? '';
+    _sleepController.text = widget.entry.sleep ?? '';
+    _timingsController.text = widget.entry.timings ?? '';
+    _performanceController.text = widget.entry.performance ?? '';
+    _circumstancesController.text = widget.entry.circumstances ?? '';
+    _kmController.text = widget.entry.km ?? '';
+    _linkController.text = widget.entry.link;
+  }
+
+  @override
   void dispose() {
     _node.dispose();
     _infoForCoachController.dispose();
@@ -82,6 +106,8 @@ class _LogbookEntryEditContentsState
   Future<void> _submit() async {
     setState(() => _submitted = true);
     if (_formKey.currentState!.validate()) {
+      final controller =
+          ref.read(logbookEntryEditScreenControllerProvider.notifier);
       final newEntry = widget.entry.copyWith(
         infoForCoach: () => infoForCoach,
         sleep: () => sleep,
@@ -91,18 +117,21 @@ class _LogbookEntryEditContentsState
         km: () => km,
         link: link,
       );
-      debugPrint(newEntry.toString());
-      // final controller = ref.read(logbookEntryEditControllerProvider.notifier);
 
-      // final success = await controller.submit();
-      // if (success) {
-      //   widget.onSubmitted?.call();
-      // }
+      final success = await controller.save(newEntry);
+      if (success) {
+        widget.onSubmitted?.call();
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      logbookEntryEditScreenControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+    );
+    final state = ref.watch(logbookEntryEditScreenControllerProvider);
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
@@ -115,9 +144,12 @@ class _LogbookEntryEditContentsState
               // info for coach field
               TextFormField(
                 controller: _infoForCoachController,
+                maxLines: null,
+                minLines: 3,
+                keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   labelText: 'Info for coach'.hardcoded,
-                  // enabled: !state.isLoading,
+                  enabled: !state.isLoading,
                 ),
                 textInputAction: TextInputAction.next,
                 onEditingComplete: () => _node.nextFocus(),
@@ -129,26 +161,73 @@ class _LogbookEntryEditContentsState
                 keyboardType: TextInputType.number,
                 // inputFormatters: const [],
                 decoration: InputDecoration(
-                  labelText: 'Hours of sleep'.hardcoded,
-                  // enabled: !state.isLoading,
+                  labelText: 'Sleep (hours)'.hardcoded,
+                  enabled: !state.isLoading,
                 ),
                 textInputAction: TextInputAction.next,
                 onEditingComplete: () => _node.nextFocus(),
+              ),
+              TextFormField(
+                controller: _timingsController,
+                keyboardType: TextInputType.number,
+                // inputFormatters: const [],
+                decoration: InputDecoration(
+                  labelText: 'Timings'.hardcoded,
+                  enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+              TextFormField(
+                controller: _performanceController,
+                minLines: 3,
+                maxLines: null,
+                decoration: InputDecoration(
+                  labelText: 'Performance'.hardcoded,
+                  enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+              TextFormField(
+                controller: _circumstancesController,
+                decoration: InputDecoration(
+                  labelText: 'Circumstances'.hardcoded,
+                  enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+              TextFormField(
+                controller: _kmController,
+                keyboardType: TextInputType.number,
+                // inputFormatters: const [],
+                decoration: InputDecoration(
+                  labelText: 'Distance (km)'.hardcoded,
+                  enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () => _node.nextFocus(),
+              ),
+              TextFormField(
+                controller: _linkController,
+                decoration: InputDecoration(
+                  labelText: 'Link'.hardcoded,
+                  enabled: !state.isLoading,
+                ),
+                textInputAction: TextInputAction.done,
+                onEditingComplete: _submit,
+              ),
+              gapH8,
+              PrimaryButton(
+                text: 'Update'.hardcoded,
+                isLoading: state.isLoading,
+                onPressed: state.isLoading ? null : () => _submit(),
               ),
             ],
           ),
         ),
       ),
     );
-  }
-}
-
-// TODO: implement logbook entry not found widget
-class LogbookEntryNotFoundContents extends StatelessWidget {
-  const LogbookEntryNotFoundContents({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
