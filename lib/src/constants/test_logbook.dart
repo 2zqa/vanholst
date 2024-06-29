@@ -1,8 +1,8 @@
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 
 /// Test products to be used until a data source is implemented
-const kTestLogbook = [
-  LogbookEntry(
+final kTestLogbook = [
+  const LogbookEntry(
     userId: "122",
     id: "6064",
     infoForCoach: null,
@@ -19,7 +19,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6067",
     infoForCoach: null,
@@ -35,7 +35,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6070",
     infoForCoach: null,
@@ -51,7 +51,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6073",
     infoForCoach: null,
@@ -67,7 +67,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6076",
     infoForCoach: null,
@@ -84,7 +84,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6079",
     infoForCoach: null,
@@ -100,7 +100,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6082",
     infoForCoach: null,
@@ -116,7 +116,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6085",
     infoForCoach: null,
@@ -132,7 +132,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6088",
     infoForCoach: null,
@@ -148,7 +148,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6091",
     infoForCoach: null,
@@ -164,7 +164,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6094",
     infoForCoach: null,
@@ -180,7 +180,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6097",
     infoForCoach: null,
@@ -196,7 +196,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6100",
     infoForCoach: null,
@@ -212,7 +212,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6103",
     infoForCoach: null,
@@ -228,7 +228,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6106",
     infoForCoach: null,
@@ -244,7 +244,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6109",
     infoForCoach: null,
@@ -260,7 +260,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6112",
     infoForCoach: null,
@@ -276,7 +276,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6115",
     infoForCoach: null,
@@ -292,7 +292,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6118",
     infoForCoach: null,
@@ -308,7 +308,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6121",
     infoForCoach: null,
@@ -324,7 +324,7 @@ const kTestLogbook = [
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
-  LogbookEntry(
+  const LogbookEntry(
     userId: "122",
     id: "6124",
     infoForCoach: null,
