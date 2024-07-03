@@ -83,6 +83,12 @@ class LogbookEntryDetails extends StatelessWidget {
                     fontSize: 16,
                     fontStyle:
                         entry.circumstances != null ? null : FontStyle.italic)),
+            Text(
+              '${'Link'.hardcoded}: ${entry.link.isNotEmpty ? entry.linkUri.toString() : 'not provided'.hardcoded}',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontStyle: entry.link.isNotEmpty ? null : FontStyle.italic),
+            ),
             gapH8,
             Text('Info for Coach'.hardcoded,
                 style: const TextStyle(
