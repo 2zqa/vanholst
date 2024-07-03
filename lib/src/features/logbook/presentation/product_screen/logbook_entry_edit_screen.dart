@@ -149,7 +149,7 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _infoForCoachController,
                 maxLines: null,
-                minLines: 3,
+                minLines: 2,
                 keyboardType: TextInputType.multiline,
                 decoration: InputDecoration(
                   labelText: 'Info for coach'.hardcoded,
@@ -184,7 +184,7 @@ class _LogbookEntryEditContentsState
               ),
               TextFormField(
                 controller: _performanceController,
-                minLines: 3,
+                minLines: 2,
                 maxLines: null,
                 decoration: InputDecoration(
                   labelText: 'Performance'.hardcoded,
@@ -220,7 +220,6 @@ class _LogbookEntryEditContentsState
                   enabled: !state.isLoading,
                 ),
                 textInputAction: TextInputAction.done,
-                onEditingComplete: _submit,
               ),
               gapH8,
               PrimaryButton(
