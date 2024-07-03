@@ -173,8 +173,6 @@ class _LogbookEntryEditContentsState
               ),
               TextFormField(
                 controller: _timingsController,
-                keyboardType: TextInputType.number,
-                // inputFormatters: const [],
                 decoration: InputDecoration(
                   labelText: 'Timings'.hardcoded,
                   enabled: !state.isLoading,
