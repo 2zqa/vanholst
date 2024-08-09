@@ -15,8 +15,8 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 import 'package:vanholst/src/utils/async_value_ui.dart';
 
-final _filteringTextInputFormatter =
-    FilteringTextInputFormatter.allow(RegExp(r'[0-9,\.]'));
+final _decimalTextInputFormatter =
+    FilteringTextInputFormatter.allow(RegExp(r'[0-9\.]'));
 
 class LogbookEntryEditScreen extends ConsumerWidget {
   const LogbookEntryEditScreen({super.key, required this.entryId});
@@ -163,7 +163,7 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _sleepController,
                 keyboardType: TextInputType.number,
-                inputFormatters: [_filteringTextInputFormatter],
+                inputFormatters: [_decimalTextInputFormatter],
                 decoration: InputDecoration(
                   labelText: 'Sleep (hours)'.hardcoded,
                   enabled: !state.isLoading,
@@ -203,7 +203,7 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _kmController,
                 keyboardType: TextInputType.number,
-                inputFormatters: [_filteringTextInputFormatter],
+                inputFormatters: [_decimalTextInputFormatter],
                 decoration: InputDecoration(
                   labelText: 'Distance (km)'.hardcoded,
                   enabled: !state.isLoading,
