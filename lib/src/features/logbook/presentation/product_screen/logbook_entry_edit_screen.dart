@@ -11,12 +11,10 @@ import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/features/logbook/presentation/product_screen/logbook_entry_edit_screen_controller.dart';
+import 'package:vanholst/src/features/logbook/presentation/product_screen/number_text_formatters.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 import 'package:vanholst/src/utils/async_value_ui.dart';
-
-final _decimalTextInputFormatter =
-    FilteringTextInputFormatter.allow(RegExp(r'[0-9\.]'));
 
 class LogbookEntryEditScreen extends ConsumerWidget {
   const LogbookEntryEditScreen({super.key, required this.entryId});
@@ -61,7 +59,7 @@ class LogbookEntryEditContents extends ConsumerStatefulWidget {
 }
 
 class _LogbookEntryEditContentsState
-    extends ConsumerState<LogbookEntryEditContents> /*with XYZValidators*/ {
+    extends ConsumerState<LogbookEntryEditContents> /*TODO: with Validators*/ {
   final _formKey = GlobalKey<FormState>();
   final _node = FocusScopeNode();
   final _infoForCoachController = TextEditingController();
@@ -163,7 +161,10 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _sleepController,
                 keyboardType: TextInputType.number,
-                inputFormatters: [_decimalTextInputFormatter],
+                inputFormatters: [
+                  CommaWithPeriodReplacer(),
+                  decimalTextInputFormatter,
+                ],
                 decoration: InputDecoration(
                   labelText: 'Sleep (hours)'.hardcoded,
                   enabled: !state.isLoading,
