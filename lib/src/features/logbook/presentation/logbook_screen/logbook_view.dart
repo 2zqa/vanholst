@@ -6,7 +6,7 @@ import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
-import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_entry_list_item.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_entry_list_item.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 import 'package:vanholst/src/utils/is_today.dart';

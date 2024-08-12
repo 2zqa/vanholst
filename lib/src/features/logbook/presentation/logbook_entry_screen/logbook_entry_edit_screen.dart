@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
@@ -10,8 +9,8 @@ import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
-import 'package:vanholst/src/features/logbook/presentation/product_screen/logbook_entry_edit_screen_controller.dart';
-import 'package:vanholst/src/features/logbook/presentation/product_screen/number_text_formatters.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_entry_screen/logbook_entry_edit_screen_controller.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_entry_screen/number_text_formatters.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 import 'package:vanholst/src/utils/async_value_ui.dart';
@@ -204,7 +203,7 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _kmController,
                 keyboardType: TextInputType.number,
-                inputFormatters: [_decimalTextInputFormatter],
+                inputFormatters: [decimalTextInputFormatter],
                 decoration: InputDecoration(
                   labelText: 'Distance (km)'.hardcoded,
                   enabled: !state.isLoading,

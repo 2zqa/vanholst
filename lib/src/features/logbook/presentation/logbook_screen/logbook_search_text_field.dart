@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Search field used to filter products by name
-class ProductsSearchTextField extends StatefulWidget {
-  const ProductsSearchTextField({super.key});
+class LogbookSearchTextField extends StatefulWidget {
+  const LogbookSearchTextField({super.key});
 
   @override
-  State<ProductsSearchTextField> createState() =>
-      _ProductsSearchTextFieldState();
+  State<LogbookSearchTextField> createState() => _LogbookSearchTextFieldState();
 }
 
-class _ProductsSearchTextFieldState extends State<ProductsSearchTextField> {
+class _LogbookSearchTextFieldState extends State<LogbookSearchTextField> {
   final _controller = TextEditingController();
 
   @override

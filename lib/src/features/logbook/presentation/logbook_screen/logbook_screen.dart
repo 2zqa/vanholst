@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
-import 'package:vanholst/src/features/logbook/presentation/products_list/logbook_view.dart';
-import 'package:vanholst/src/features/logbook/presentation/products_list/products_search_text_field.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_search_text_field.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_view.dart';
 
 /// Shows the list of products with a search field at the top.
 class LogbookScreen extends StatefulWidget {
@@ -49,7 +49,7 @@ class _LogbookScreenState extends State<LogbookScreen> {
         slivers: const [
           ResponsiveSliverCenter(
             padding: EdgeInsets.all(Sizes.p16),
-            child: ProductsSearchTextField(),
+            child: LogbookSearchTextField(),
           ),
           LogbookView(),
         ],
