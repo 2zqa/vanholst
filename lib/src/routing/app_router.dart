@@ -21,16 +21,15 @@ enum AppRoute {
 final goRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
-    initialLocation: '/',
-    debugLogDiagnostics: false,
+    initialLocation: authRepository.currentUser != null ? '/' : '/signIn',
     refreshListenable: GoRouterRefreshStream(authRepository.authStateChanges()),
     redirect: (_, state) {
       final isLoggedIn = authRepository.currentUser != null;
       final path = state.uri.path;
-      if (isLoggedIn && path == '/signIn') {
-        return '/';
+      if (!isLoggedIn) {
+        return '/signIn';
       }
-      if (!isLoggedIn && path == '/account') {
+      if (isLoggedIn && path == '/signIn') {
         return '/';
       }
       return null;
@@ -70,15 +69,12 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               child: AccountScreen(),
             ),
           ),
-          GoRoute(
-            path: 'signIn',
-            name: AppRoute.signIn.name,
-            pageBuilder: (context, state) => const MaterialPage(
-              fullscreenDialog: true,
-              child: SignInScreen(),
-            ),
-          ),
         ],
+      ),
+      GoRoute(
+        path: '/signIn',
+        name: AppRoute.signIn.name,
+        builder: (context, state) => const SignInScreen(),
       ),
     ],
     errorBuilder: (context, state) => const NotFoundScreen(),
