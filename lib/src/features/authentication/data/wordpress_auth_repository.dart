@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:sembast_web/sembast_web.dart';
+import 'package:vanholst/src/exceptions/app_exception.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 import 'package:vanholst/src/utils/get_impersonating_headers.dart';
@@ -86,16 +87,16 @@ class WordpressAuthRepository implements AuthRepository {
       final nonce =
           RegExp(r'name="_wpnonce" value="(\w+)"').firstMatch(body)?.group(1);
       if (nonce == null) {
-        throw Exception('Failed to parse nonce');
+        throw ParseException();
       }
       final formID =
           RegExp(r'id="form_id_\d+" value="(\d+)"').firstMatch(body)?.group(1);
       if (formID == null) {
-        throw Exception('Failed to parse formID');
+        throw ParseException();
       }
       return (nonce, formID);
     } else {
-      throw Exception('Failed to load login page');
+      throw PageLoadException();
     }
   }
 
@@ -118,18 +119,19 @@ class WordpressAuthRepository implements AuthRepository {
     );
 
     if (response.statusCode != 302) {
-      throw Exception("Page didn't load correctly");
+      _checkInvalidPassword(response.body);
+      throw PageLoadException();
     }
 
     final cookieHeader = response.headers['set-cookie'];
 
     if (cookieHeader == null) {
-      throw Exception('No cookies in response');
+      throw MissingCookiesException();
     }
 
     if (!cookieHeader.contains('wordpress_sec') ||
         !cookieHeader.contains('wordpress_logged_in')) {
-      throw Exception('Missing required cookies');
+      throw MissingCookiesException();
     }
 
     final hash = cookieHeader.retrieveBetween("wordpress_sec_", "=");
@@ -147,5 +149,12 @@ class WordpressAuthRepository implements AuthRepository {
         .replace(queryParameters: params);
 
     return http.get(url, headers: headers);
+  }
+
+  bool _checkInvalidPassword(String body) {
+    if (body.contains('Wachtwoord is onjuist. Probeer het opnieuw.')) {
+      throw WrongPasswordException();
+    }
+    return false;
   }
 }
