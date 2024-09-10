@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:vanholst/src/app.dart';
+import 'package:vanholst/src/exceptions/async_error_logger.dart';
+import 'package:vanholst/src/exceptions/error_logger.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/wordpress_auth_repository.dart';
@@ -12,9 +14,8 @@ import 'package:vanholst/src/localization/string_hardcoded.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
-  registerErrorHandlers();
   final wordpressAuthRepository = await WordpressAuthRepository.makeDefault();
-  runApp(ProviderScope(
+  final container = ProviderContainer(
     overrides: [
       authRepositoryProvider.overrideWith((ref) {
         // Run with this command:
@@ -23,19 +24,25 @@ void main() async {
         return isFake ? FakeAuthRepository() : wordpressAuthRepository;
       })
     ],
+    observers: [AsyncErrorLogger()],
+  );
+  final errorLogger = container.read(errorLoggerProvider);
+  registerErrorHandlers(errorLogger);
+  runApp(UncontrolledProviderScope(
+    container: container,
     child: const MyApp(),
   ));
 }
 
-void registerErrorHandlers() {
+void registerErrorHandlers(ErrorLogger errorLogger) {
   // * Show some error UI if any uncaught exception happens
   FlutterError.onError = (FlutterErrorDetails details) {
     FlutterError.presentError(details);
-    debugPrint(details.toString());
+    errorLogger.logError(details.exception, details.stack);
   };
   // * Handle errors from the underlying platform/OS
   PlatformDispatcher.instance.onError = (Object error, StackTrace stack) {
-    debugPrint(error.toString());
+    errorLogger.logError(error, stack);
     return true;
   };
   // * Show some error UI when any widget in the app fails to build
