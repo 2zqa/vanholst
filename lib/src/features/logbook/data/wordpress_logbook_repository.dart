@@ -114,7 +114,7 @@ class WordpressLogbookRepository implements LogbookRepository {
   Future<List<LogbookEntry>> getLogbookEntryList() async {
     final user = appUser;
     if (user == null) {
-      throw Exception('User not logged in');
+      throw NotLoggedInException();
     }
     final (tableNonce, tableId) = await _getNonceAndTableID(user);
     final json = await _getRowJson(user, tableNonce, tableId);
@@ -135,7 +135,7 @@ class WordpressLogbookRepository implements LogbookRepository {
   Future<void> updateLogbookEntry(LogbookEntry entry) async {
     final user = appUser;
     if (user == null) {
-      throw Exception('User not logged in');
+      throw NotLoggedInException();
     }
     final (tableNonce, tableId) = await _getNonceAndTableID(user);
     final url = Uri.parse(_vanholstAdminUri);
@@ -147,7 +147,7 @@ class WordpressLogbookRepository implements LogbookRepository {
       headers: headers,
     );
     if (response.statusCode != 200) {
-      throw Exception('Failed to update logbook entry');
+      throw PageLoadException();
     }
   }
 
@@ -158,16 +158,16 @@ class WordpressLogbookRepository implements LogbookRepository {
       final match = RegExp(r'name="wdtNonceFrontendEdit_(\d+)" value="(\w+)"')
           .firstMatch(body);
       if (match == null) {
-        throw Exception('Failed to parse nonce and formID');
+        throw ParseException();
       }
       final tableId = match.group(1);
       final nonce = match.group(2);
       if (nonce == null || tableId == null) {
-        throw Exception('Failed to parse nonce or formID');
+        throw ParseException();
       }
       return (nonce, tableId);
     } else {
-      throw Exception('Failed to load logbook page');
+      throw ParseException();
     }
   }
 

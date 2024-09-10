@@ -10,6 +10,11 @@ sealed class AppException implements Exception {
   String toString() => message;
 }
 
+class NotLoggedInException extends AppException {
+  NotLoggedInException()
+      : super('not-logged-in', 'User is not logged in'.hardcoded);
+}
+
 class WrongPasswordException extends AppException {
   WrongPasswordException()
       : super('wrong-password', 'Wrong password'.hardcoded);
