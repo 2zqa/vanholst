@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:vanholst/src/exceptions/app_exception.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user.dart';
 import 'package:vanholst/src/features/authentication/domain/app_user_cookie.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
@@ -205,10 +206,13 @@ class WordpressLogbookRepository implements LogbookRepository {
       headers: headers,
     );
     if (response.statusCode == 200) {
+      if (response.body.isEmpty) {
+        throw PageLoadException();
+      }
       final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
       return jsonResponse['data'];
     } else {
-      throw Exception('Failed to query logbook data');
+      throw PageLoadException();
     }
   }
 }
