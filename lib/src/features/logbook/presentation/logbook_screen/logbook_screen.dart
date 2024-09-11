@@ -18,6 +18,8 @@ class _LogbookScreenState extends ConsumerState<LogbookScreen> {
   // * This is needed because this page has a search field that the user can
   // * type into.
   final _scrollController = ScrollController();
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
@@ -42,8 +44,9 @@ class _LogbookScreenState extends ConsumerState<LogbookScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: HomeAppBar(refreshKey: _refreshIndicatorKey.currentState),
       body: RefreshIndicator(
+        key: _refreshIndicatorKey,
         onRefresh: () => ref.refresh(logbookNotifierProvider.future),
         child: CustomScrollView(
           controller: _scrollController,
