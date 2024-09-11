@@ -155,8 +155,9 @@ class WordpressLogbookRepository implements LogbookRepository {
     final response = await _getVanHolstLogbookResponse(appUser);
     if (response.statusCode == 200) {
       final body = response.body;
-      final match = RegExp(r'name="wdtNonceFrontendEdit_(\d+)" value="(\w+)"')
-          .firstMatch(body);
+      final match =
+          RegExp(r'name="wdtNonceFrontendServerSide_(\d+)" value="(\w+)"')
+              .firstMatch(body);
       if (match == null) {
         throw ParseException();
       }
@@ -195,14 +196,10 @@ class WordpressLogbookRepository implements LogbookRepository {
       'length': _queryCount.toString(),
       'wdtNonce': tableNonce,
     };
-    final requestBody = formData.entries
-        .map((e) =>
-            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
     final headers = getImpersonatingSchemaHeaders(authCookie: user.cookie);
     final response = await http.post(
       url,
-      body: requestBody,
+      body: formData,
       headers: headers,
     );
     if (response.statusCode == 200) {
