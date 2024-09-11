@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:vanholst/src/common_widgets/responsive_center.dart';
-import 'package:vanholst/src/constants/app_sizes.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
-import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_search_text_field.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_view.dart';
 
 /// Shows the list of products with a search field at the top.
@@ -51,10 +48,11 @@ class _LogbookScreenState extends ConsumerState<LogbookScreen> {
         child: CustomScrollView(
           controller: _scrollController,
           slivers: const [
-            ResponsiveSliverCenter(
-              padding: EdgeInsets.all(Sizes.p16),
-              child: LogbookSearchTextField(),
-            ),
+            // TODO: Implement search
+            // ResponsiveSliverCenter(
+            //   padding: EdgeInsets.all(Sizes.p16),
+            //   child: LogbookSearchTextField(),
+            // ),
             LogbookView(),
           ],
         ),
