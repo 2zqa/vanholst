@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:vanholst/src/constants/test_logbook.dart';
 import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
@@ -8,7 +10,24 @@ class FakeLogbookRepository implements LogbookRepository {
   @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
     await Future.delayed(const Duration(seconds: 1));
-    return Future.value(_entries);
+    final random = Random();
+    final randomEntry = LogbookEntry(
+      userId: '1',
+      id: '1',
+      infoForCoach: random.nextInt(100).toString(),
+      date: '10/06/2024',
+      shortDayName: 'x',
+      program: '${random.nextInt(100)} minute walk',
+      sleep: 'sleep',
+      timings: 'timings',
+      performance: 'performance',
+      circumstances: 'circumstances',
+      km: 'km',
+      link: 'link',
+      feedbackCoach: 'feedbackCoach',
+      timestamp: DateTime.now().millisecondsSinceEpoch.toString(),
+    );
+    return Future.value([randomEntry] + _entries);
   }
 
   @override
