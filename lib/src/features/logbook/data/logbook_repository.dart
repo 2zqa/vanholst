@@ -19,7 +19,7 @@ final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
 });
 
 class LogbookNotifier extends AsyncNotifier<List<LogbookEntry>> {
-  late final LogbookRepository _logbookRepository;
+  late LogbookRepository _logbookRepository;
 
   @override
   Future<List<LogbookEntry>> build() {

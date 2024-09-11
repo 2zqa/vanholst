@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
+import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/presentation/home_app_bar/home_app_bar.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_search_text_field.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_view.dart';
 
 /// Shows the list of products with a search field at the top.
-class LogbookScreen extends StatefulWidget {
+class LogbookScreen extends ConsumerStatefulWidget {
   const LogbookScreen({super.key});
 
   @override
-  State<LogbookScreen> createState() => _LogbookScreenState();
+  ConsumerState<LogbookScreen> createState() => _LogbookScreenState();
 }
 
-class _LogbookScreenState extends State<LogbookScreen> {
+class _LogbookScreenState extends ConsumerState<LogbookScreen> {
   // * Use a [ScrollController] to register a listener that dismisses the
   // * on-screen keyboard when the user scrolls.
   // * This is needed because this page has a search field that the user can
@@ -44,15 +46,18 @@ class _LogbookScreenState extends State<LogbookScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const HomeAppBar(),
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: const [
-          ResponsiveSliverCenter(
-            padding: EdgeInsets.all(Sizes.p16),
-            child: LogbookSearchTextField(),
-          ),
-          LogbookView(),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () => ref.refresh(logbookNotifierProvider.future),
+        child: CustomScrollView(
+          controller: _scrollController,
+          slivers: const [
+            ResponsiveSliverCenter(
+              padding: EdgeInsets.all(Sizes.p16),
+              child: LogbookSearchTextField(),
+            ),
+            LogbookView(),
+          ],
+        ),
       ),
     );
   }
