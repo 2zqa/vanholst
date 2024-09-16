@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // ignore:depend_on_referenced_packages
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -9,7 +10,6 @@ import 'package:vanholst/src/exceptions/error_logger.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/wordpress_auth_repository.dart';
-import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +50,9 @@ void registerErrorHandlers(ErrorLogger errorLogger) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text('An error occurred'.hardcoded),
+        title: Builder(builder: (context) {
+          return Text(AppLocalizations.of(context).app_error_message);
+        }),
       ),
       body: Center(child: Text(details.toString())),
     );
