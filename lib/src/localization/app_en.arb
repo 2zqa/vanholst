@@ -1,17 +1,17 @@
 {
   "@@locale": "en",
-  "app_description": "Hardloopbegeleiding op elk niveau",
-  "app_error_message": "An error occurred",
-  "authentication_title": "Sign in",
-  "authentication_login": "Email or username",
-  "authentication_password": "Password",
-  "authentication_sign_in": "Sign in",
-  "logbook_not_provided": "not provided",
-  "@logbook_not_provided": {
+  "appDescription": "Hardloopbegeleiding op elk niveau",
+  "appErrorMessage": "An error occurred",
+  "authenticationTitle": "Sign in",
+  "authenticationLogin": "Email or username",
+  "authenticationPassword": "Password",
+  "authenticationSignIn": "Sign in",
+  "logbookNotProvided": "not provided",
+  "@logbookNotProvided": {
     "description": "The default value for when a logbook field is not provided. Dynamically capitalized."
   },
-  "logbook_program_for": "Program for {date}",
-  "@logbook_program_for": {
+  "logbookProgramFor": "Program for {date}",
+  "@logbookProgramFor": {
     "placeholders": {
       "date": {
         "type": "DateTime",
@@ -20,43 +20,43 @@
       }
     }
   },
-  "logbook_no_program": "No program provided",
-  "logbook_performance": "Performance",
-  "logbook_circumstances": "Circumstances: {circumstances}",
-  "@logbook_circumstances": {
+  "logbookNoProgram": "No program provided",
+  "logbookPerformance": "Performance",
+  "logbookCircumstances": "Circumstances: {circumstances}",
+  "@logbookCircumstances": {
     "placeholders": {
       "circumstances": {
         "type": "String",
         "example": "Surface: asphalt, weather: 10 degrees, footwear: trainers",
-        "description": "The circumstances of the run. If not provided, the default value is taken from logbook_not_provided."
+        "description": "The circumstances of the run. If not provided, the default value is taken from logbookNotProvided."
       }
     }
   },
-  "logbook_link": "Link: {link}",
-  "@logbook_link": {
+  "logbookLink": "Link: {link}",
+  "@logbookLink": {
     "placeholders": {
       "link": {
         "type": "String",
-        "description": "The link to the run. If not provided, the default value is taken from logbook_not_provided."
+        "description": "The link to the run. If not provided, the default value is taken from logbookNotProvided."
       }
     }
   },
-  "logbook_info_for_coach": "Info for coach",
-  "logbook_sleep": "Sleep: {sleep}",
-  "@logbook_sleep": {
+  "logbookInfoForCoach": "Info for coach",
+  "logbookSleep": "Sleep: {sleep}",
+  "@logbookSleep": {
     "placeholders": {
       "sleep": {
         "type": "String",
-        "description": "The amount of sleep the night before the run. If not provided, the default value is taken from logbook_not_provided."
+        "description": "The amount of sleep the night before the run. If not provided, the default value is taken from logbookNotProvided."
       }
     }
   },
-  "logbook_timings": "Timings: {timings}",
-  "@logbook_timings": {
+  "logbookTimings": "Timings: {timings}",
+  "@logbookTimings": {
     "placeholders": {
       "timings": {
         "type": "String",
-        "description": "The timings of the run. If not provided, the default value is taken from logbook_not_provided."
+        "description": "The timings of the run. If not provided, the default value is taken from logbookNotProvided."
       }
     }
   }

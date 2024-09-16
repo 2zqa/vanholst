@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/common_widgets/primary_button.dart';
 import 'package:vanholst/src/common_widgets/responsive_scrollable_card.dart';
@@ -23,7 +24,8 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Sign In'.hardcoded)),
+      appBar:
+          AppBar(title: Text(AppLocalizations.of(context).authenticationTitle)),
       body: const SignInContents(),
     );
   }

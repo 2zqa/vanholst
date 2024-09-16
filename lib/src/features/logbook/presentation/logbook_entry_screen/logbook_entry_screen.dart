@@ -61,65 +61,65 @@ class LogbookEntryDetails extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(l.logbook_program_for(entry.dateTime!),
+            Text(l.logbookProgramFor(entry.dateTime!),
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
             Text(
-              entry.program.isNotEmpty ? entry.program : l.logbook_no_program,
+              entry.program.isNotEmpty ? entry.program : l.logbookNoProgram,
               style: TextStyle(
                   fontSize: 20,
                   fontStyle:
                       entry.program.isNotEmpty ? null : FontStyle.italic),
             ),
             gapH24,
-            Text(l.logbook_performance,
+            Text(l.logbookPerformance,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
             Text(
                 entry.performance ??
-                    toBeginningOfSentenceCase(l.logbook_not_provided),
+                    toBeginningOfSentenceCase(l.logbookNotProvided),
                 style: TextStyle(
                     fontSize: 20,
                     fontStyle:
                         entry.performance != null ? null : FontStyle.italic)),
             gapH8,
             Text(
-                l.logbook_circumstances(
-                    entry.circumstances ?? l.logbook_not_provided),
+                l.logbookCircumstances(
+                    entry.circumstances ?? l.logbookNotProvided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle:
                         entry.circumstances != null ? null : FontStyle.italic)),
             Text(
-              l.logbook_link(
-                  entry.link.isNotEmpty ? entry.link : l.logbook_not_provided),
+              l.logbookLink(
+                  entry.link.isNotEmpty ? entry.link : l.logbookNotProvided),
               style: TextStyle(
                   fontSize: 16,
                   fontStyle: entry.link.isNotEmpty ? null : FontStyle.italic),
             ),
             gapH8,
-            Text(l.logbook_info_for_coach,
+            Text(l.logbookInfoForCoach,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
             Text(
                 entry.infoForCoach ??
-                    toBeginningOfSentenceCase(l.logbook_not_provided),
+                    toBeginningOfSentenceCase(l.logbookNotProvided),
                 style: TextStyle(
                     fontSize: 20,
                     fontStyle:
                         entry.infoForCoach != null ? null : FontStyle.italic)),
             gapH8,
-            Text(l.logbook_sleep(entry.sleep ?? l.logbook_not_provided),
+            Text(l.logbookSleep(entry.sleep ?? l.logbookNotProvided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle: entry.sleep != null ? null : FontStyle.italic)),
-            Text(l.logbook_timings(entry.timings ?? l.logbook_not_provided),
+            Text(l.logbookTimings(entry.timings ?? l.logbookNotProvided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle:

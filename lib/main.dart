@@ -51,7 +51,7 @@ void registerErrorHandlers(ErrorLogger errorLogger) {
       appBar: AppBar(
         backgroundColor: Colors.red,
         title: Builder(builder: (context) {
-          return Text(AppLocalizations.of(context).app_error_message);
+          return Text(AppLocalizations.of(context).appErrorMessage);
         }),
       ),
       body: Center(child: Text(details.toString())),
