@@ -60,7 +60,7 @@ Future<void> showExceptionAlertDialog({
       context: context,
       title: title,
       content: exception.toString(),
-      defaultActionText: 'OK'.hardcoded,
+      defaultActionText: MaterialLocalizations.of(context).okButtonLabel,
     );
 
 Future<void> showNotImplementedAlertDialog({required BuildContext context}) =>

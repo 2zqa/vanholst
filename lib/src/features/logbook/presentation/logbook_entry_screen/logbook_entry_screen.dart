@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:vanholst/src/common_widgets/async_value_widget.dart';
 import 'package:vanholst/src/common_widgets/empty_placeholder_widget.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
@@ -52,62 +54,72 @@ class LogbookEntryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
     return ListView(
       padding: const EdgeInsets.all(16.0),
       children: <Widget>[
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            Text(l.logbook_program_for(entry.dateTime!),
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                )),
             Text(
-                "${'Program for'.hardcoded} ${entry.shortDayName} ${entry.date}",
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                )),
-            Text(entry.program, style: const TextStyle(fontSize: 20)),
+              entry.program.isNotEmpty ? entry.program : l.logbook_no_program,
+              style: TextStyle(
+                  fontSize: 20,
+                  fontStyle:
+                      entry.program.isNotEmpty ? null : FontStyle.italic),
+            ),
             gapH24,
-            Text('Performance'.hardcoded,
+            Text(l.logbook_performance,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            Text(entry.performance ?? 'Not provided'.hardcoded,
+            Text(
+                entry.performance ??
+                    toBeginningOfSentenceCase(l.logbook_not_provided),
                 style: TextStyle(
                     fontSize: 20,
                     fontStyle:
                         entry.performance != null ? null : FontStyle.italic)),
             gapH8,
             Text(
-                '${'Circumstances'.hardcoded}: ${entry.circumstances ?? 'not provided'.hardcoded}',
+                l.logbook_circumstances(
+                    entry.circumstances ?? l.logbook_not_provided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle:
                         entry.circumstances != null ? null : FontStyle.italic)),
             Text(
-              '${'Link'.hardcoded}: ${entry.link.isNotEmpty ? entry.linkUri.toString() : 'not provided'.hardcoded}',
+              l.logbook_link(
+                  entry.link.isNotEmpty ? entry.link : l.logbook_not_provided),
               style: TextStyle(
                   fontSize: 16,
                   fontStyle: entry.link.isNotEmpty ? null : FontStyle.italic),
             ),
             gapH8,
-            Text('Info for Coach'.hardcoded,
+            Text(l.logbook_info_for_coach,
                 style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 )),
-            Text(entry.infoForCoach ?? 'Not provided'.hardcoded,
+            Text(
+                entry.infoForCoach ??
+                    toBeginningOfSentenceCase(l.logbook_not_provided),
                 style: TextStyle(
                     fontSize: 20,
                     fontStyle:
                         entry.infoForCoach != null ? null : FontStyle.italic)),
             gapH8,
-            Text(
-                '${'Sleep'.hardcoded}: ${entry.sleep ?? 'not provided'.hardcoded}',
+            Text(l.logbook_sleep(entry.sleep ?? l.logbook_not_provided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle: entry.sleep != null ? null : FontStyle.italic)),
-            Text(
-                '${'Timings'.hardcoded}: ${entry.timings ?? 'not provided'.hardcoded}',
+            Text(l.logbook_timings(entry.timings ?? l.logbook_not_provided),
                 style: TextStyle(
                     fontSize: 16,
                     fontStyle:
