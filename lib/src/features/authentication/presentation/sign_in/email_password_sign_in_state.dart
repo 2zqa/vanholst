@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:vanholst/src/features/authentication/presentation/sign_in/string_validators.dart';
-import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Mixin class to be used for client-side email & password validation
 mixin EmailAndPasswordValidators {
@@ -43,8 +43,6 @@ class SignInState with EmailAndPasswordValidators {
 }
 
 extension SignInStateX on SignInState {
-  String get passwordLabelText => 'Password'.hardcoded;
-
   bool canSubmitEmail(String email) {
     return emailSubmitValidator.isValid(email);
   }
@@ -52,16 +50,16 @@ extension SignInStateX on SignInState {
   bool canSubmitPassword(String password) =>
       passwordSignInSubmitValidator.isValid(password);
 
-  String? emailErrorText(String email) {
+  String? usernameErrorText(String email, AppLocalizations l) {
     final bool showErrorText = !canSubmitEmail(email);
     final String errorText = email.isEmpty
-        ? 'Email can\'t be empty'.hardcoded
-        : 'Invalid email'.hardcoded;
+        ? l.authenticationEmptyUsernameError
+        : l.authenticationInvalidUsernameError;
     return showErrorText ? errorText : null;
   }
 
-  String? passwordErrorText(String password) {
+  String? passwordErrorText(String password, AppLocalizations l) {
     final bool showErrorText = !canSubmitPassword(password);
-    return showErrorText ? 'Password can\'t be empty'.hardcoded : null;
+    return showErrorText ? l.authenticationEmptyPasswordError : null;
   }
 }

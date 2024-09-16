@@ -99,7 +99,8 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
       signInControllerProvider.select((state) => state.value),
       (_, value) => value.showAlertDialogOnError(context),
     );
-    final state = ref.watch(signInControllerProvider);
+    final l = AppLocalizations.of(context);
+    final state = ref.watch(signInControllerProvider(l));
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
@@ -114,13 +115,14 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 key: SignInScreen.emailKey,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  labelText: 'Email'.hardcoded,
+                  labelText: l.authenticationLogin,
                   hintText: 'test@test.com'.hardcoded,
                   enabled: !state.isLoading,
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (email) =>
-                    !_submitted ? null : state.emailErrorText(email ?? ''),
+                validator: (email) => !_submitted
+                    ? null
+                    : state.usernameErrorText(email ?? '', l),
                 autocorrect: false,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.emailAddress,
@@ -137,13 +139,13 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 key: SignInScreen.passwordKey,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  labelText: state.passwordLabelText,
+                  labelText: l.authenticationPassword,
                   enabled: !state.isLoading,
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 validator: (password) => !_submitted
                     ? null
-                    : state.passwordErrorText(password ?? ''),
+                    : state.passwordErrorText(password ?? '', l),
                 obscureText: true,
                 autocorrect: false,
                 textInputAction: TextInputAction.done,
@@ -152,7 +154,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
               ),
               gapH8,
               PrimaryButton(
-                text: 'Sign in'.hardcoded,
+                text: l.authenticationSignIn,
                 isLoading: state.isLoading,
                 onPressed: state.isLoading ? null : () => _submit(state),
               ),

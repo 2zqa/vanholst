@@ -6,6 +6,9 @@
   "authenticationLogin": "Email or username",
   "authenticationPassword": "Password",
   "authenticationSignIn": "Sign in",
+  "authenticationEmptyUsernameError": "Email can't be empty",
+  "authenticationInvalidUsernameError": "Invalid email or username",
+  "authenticationEmptyPasswordError": "Password can't be empty",
   "logbookNotProvided": "not provided",
   "@logbookNotProvided": {
     "description": "The default value for when a logbook field is not provided. Dynamically capitalized."
