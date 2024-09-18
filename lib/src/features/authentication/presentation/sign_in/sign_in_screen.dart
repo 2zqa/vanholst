@@ -100,7 +100,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
       (_, value) => value.showAlertDialogOnError(context),
     );
     final l = AppLocalizations.of(context);
-    final state = ref.watch(signInControllerProvider(l));
+    final state = ref.watch(signInControllerProvider);
     return ResponsiveScrollableCard(
       child: FocusScope(
         node: _node,
