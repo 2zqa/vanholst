@@ -12,6 +12,7 @@
   "logbookNotProvided": "niet opgegeven",
   "logbookProgramFor": "Programma voor {date}",
   "logbookNoProgram": "Geen programma beschikbaar",
+  "logbookNoProgramBrief": "Geen programma",
   "logbookPerformance": "Uitvoering",
   "logbookCircumstances": "Omstandigheden: {circumstances}",
   "logbookLink": "Link: {link}",

@@ -24,6 +24,10 @@
     }
   },
   "logbookNoProgram": "No program provided",
+  "logbookNoProgramBrief": "No program",
+  "@logbookNoProgramBrief": {
+    "description": "Shorter variant, shown in the logbook entry list"
+  },
   "logbookPerformance": "Performance",
   "logbookCircumstances": "Circumstances: {circumstances}",
   "@logbookCircumstances": {
