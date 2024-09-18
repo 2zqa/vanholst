@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vanholst/src/constants/uris.dart';
 import 'package:vanholst/src/routing/app_router.dart';
-import 'package:vanholst/src/utils/name_constants.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
@@ -15,7 +15,7 @@ class MyApp extends ConsumerWidget {
       restorationScopeId: 'app',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      title: NameConstants.appName,
+      title: Uris.appName,
       theme: ThemeData(
         // * Use this to toggle Material 3 (defaults to true since Flutter 3.16)
         useMaterial3: true,
