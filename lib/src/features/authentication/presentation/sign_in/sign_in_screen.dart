@@ -115,7 +115,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 key: SignInScreen.emailKey,
                 controller: _emailController,
                 decoration: InputDecoration(
-                  labelText: l.authenticationLogin,
+                  labelText: l.signInLogin,
                   hintText: 'test@test.com'.hardcoded,
                   enabled: !state.isLoading,
                 ),
@@ -139,7 +139,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 key: SignInScreen.passwordKey,
                 controller: _passwordController,
                 decoration: InputDecoration(
-                  labelText: l.authenticationPassword,
+                  labelText: l.signInPassword,
                   enabled: !state.isLoading,
                 ),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -154,7 +154,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
               ),
               gapH8,
               PrimaryButton(
-                text: l.authenticationSignIn,
+                text: l.signInSignIn,
                 isLoading: state.isLoading,
                 onPressed: state.isLoading ? null : () => _submit(state),
               ),

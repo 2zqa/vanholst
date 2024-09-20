@@ -53,13 +53,13 @@ extension SignInStateX on SignInState {
   String? usernameErrorText(String email, AppLocalizations l) {
     final bool showErrorText = !canSubmitEmail(email);
     final String errorText = email.isEmpty
-        ? l.authenticationEmptyUsernameError
-        : l.authenticationInvalidUsernameError;
+        ? l.signInEmptyUsernameError
+        : l.signInInvalidUsernameError;
     return showErrorText ? errorText : null;
   }
 
   String? passwordErrorText(String password, AppLocalizations l) {
     final bool showErrorText = !canSubmitPassword(password);
-    return showErrorText ? l.authenticationEmptyPasswordError : null;
+    return showErrorText ? l.signInEmptyPasswordError : null;
   }
 }
