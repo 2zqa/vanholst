@@ -10,11 +10,14 @@ import 'package:vanholst/src/exceptions/error_logger.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/wordpress_auth_repository.dart';
+import 'package:vanholst/src/features/settings/data/settings_repository.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
+  // TODO: check if these can be awaited in parallel
   final wordpressAuthRepository = await WordpressAuthRepository.makeDefault();
+  final settingsRepository = await SettingsRepository.makeDefault();
   final container = ProviderContainer(
     overrides: [
       authRepositoryProvider.overrideWith((ref) {
@@ -22,7 +25,8 @@ void main() async {
         // flutter run --dart-define=useFakeRepos=true/false
         const isFake = String.fromEnvironment('useFakeRepos') == 'true';
         return isFake ? FakeAuthRepository() : wordpressAuthRepository;
-      })
+      }),
+      settingsRepositoryProvider.overrideWith((ref) => settingsRepository),
     ],
     observers: [AsyncErrorLogger()],
   );
