@@ -24,8 +24,7 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-          AppBar(title: Text(AppLocalizations.of(context).authenticationTitle)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).signInTitle)),
       body: const SignInContents(),
     );
   }
