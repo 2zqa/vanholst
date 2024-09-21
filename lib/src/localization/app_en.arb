@@ -66,5 +66,30 @@
         "description": "The timings of the run. If not provided, the default value is taken from logbookNotProvided."
       }
     }
-  }
+  },
+  "settingsTitle": "Settings",
+  "settingsCommonSection": "Common",
+  "settingsSupportSection": "Support",
+  "settingsTheme": "Theme",
+  "settingsLightTheme": "Light",
+  "settingsDarkTheme": "Dark",
+  "settingsSystemTheme": "System",
+  "settingsLanguage": "Language",
+  "settingsSystemLanguage": "System language",
+  "settingsReportIssue": "Report a bug",
+  "settingsReportIssueDescription": "Oh no, you encountered a bug? Let me know and I will try to fix it. Press {send} below to write an email.\n\nPlease include a description of the problem and how to reproduce it. Thank you!",
+  "@reportBugDialogDescription": {
+    "description": "Description of how to report a bug, shown in the report bug dialog",
+    "placeholders": {
+      "send": {
+        "description": "Label for the send button in the report bug dialog. Will be converted to lowercase."
+      }
+    }
+  },
+  "settingsAbout": "About the app",
+  "settingsSourceCodeInfo": "The source code of this app is available on GitHub.",
+  "@settingsSourceCodeInfo": {
+    "description": "Version of the app, shown in the about dialog. Must contain the word \"GitHub\", case sensitive, as it will be replaced with a link to the GitHub repository"
+  },
+  "settingsSend": "Send"
 }

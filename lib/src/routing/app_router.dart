@@ -7,6 +7,7 @@ import 'package:vanholst/src/features/authentication/presentation/sign_in/sign_i
 import 'package:vanholst/src/features/logbook/presentation/logbook_entry_screen/logbook_entry_edit_screen.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_entry_screen/logbook_entry_screen.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_screen.dart';
+import 'package:vanholst/src/features/settings/presentation/settings_screen.dart';
 import 'package:vanholst/src/routing/go_router_refresh_stream.dart';
 import 'package:vanholst/src/routing/not_found_screen.dart';
 
@@ -16,6 +17,7 @@ enum AppRoute {
   logbookEntryEdit,
   account,
   signIn,
+  settings,
 }
 
 final goRouterProvider = Provider<GoRouter>((ref) {
@@ -69,6 +71,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
               child: AccountScreen(),
             ),
           ),
+          GoRoute(
+            path: 'settings',
+            name: AppRoute.settings.name,
+            builder: (context, state) => const SettingsScreen(),
+          )
         ],
       ),
       GoRoute(

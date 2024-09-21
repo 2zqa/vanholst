@@ -26,13 +26,11 @@ class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
             icon: const Icon(Icons.refresh),
           ),
         IconButton(
-          onPressed: () {
-            context.goNamed(AppRoute.account.name);
-          },
+          onPressed: () => context.goNamed(AppRoute.account.name),
           icon: const Icon(Icons.account_circle),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () => context.goNamed(AppRoute.settings.name),
           icon: const Icon(Icons.settings),
         ),
       ],
