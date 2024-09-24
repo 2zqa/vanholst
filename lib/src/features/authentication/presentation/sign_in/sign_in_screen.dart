@@ -105,59 +105,61 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
         node: _node,
         child: Form(
           key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              gapH8,
-              // Email field
-              TextFormField(
-                key: SignInScreen.emailKey,
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: l.signInLogin,
-                  hintText: 'test@test.com'.hardcoded,
-                  enabled: !state.isLoading,
+          child: AutofillGroup(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                gapH8,
+                // Email field
+                TextFormField(
+                  key: SignInScreen.emailKey,
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    labelText: l.signInLogin,
+                    hintText: 'test@test.com'.hardcoded,
+                    enabled: !state.isLoading,
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) => !_submitted
+                      ? null
+                      : state.usernameErrorText(email ?? '', l),
+                  autocorrect: false,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.emailAddress,
+                  keyboardAppearance: Brightness.light,
+                  onEditingComplete: () => _emailEditingComplete(state),
+                  inputFormatters: <TextInputFormatter>[
+                    ValidatorInputFormatter(
+                        editingValidator: EmailEditingRegexValidator()),
+                  ],
                 ),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (email) => !_submitted
-                    ? null
-                    : state.usernameErrorText(email ?? '', l),
-                autocorrect: false,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.emailAddress,
-                keyboardAppearance: Brightness.light,
-                onEditingComplete: () => _emailEditingComplete(state),
-                inputFormatters: <TextInputFormatter>[
-                  ValidatorInputFormatter(
-                      editingValidator: EmailEditingRegexValidator()),
-                ],
-              ),
-              gapH8,
-              // Password field
-              TextFormField(
-                key: SignInScreen.passwordKey,
-                controller: _passwordController,
-                decoration: InputDecoration(
-                  labelText: l.signInPassword,
-                  enabled: !state.isLoading,
+                gapH8,
+                // Password field
+                TextFormField(
+                  key: SignInScreen.passwordKey,
+                  controller: _passwordController,
+                  decoration: InputDecoration(
+                    labelText: l.signInPassword,
+                    enabled: !state.isLoading,
+                  ),
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (password) => !_submitted
+                      ? null
+                      : state.passwordErrorText(password ?? '', l),
+                  obscureText: true,
+                  autocorrect: false,
+                  textInputAction: TextInputAction.done,
+                  keyboardAppearance: Brightness.light,
+                  onEditingComplete: () => _passwordEditingComplete(state),
                 ),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                validator: (password) => !_submitted
-                    ? null
-                    : state.passwordErrorText(password ?? '', l),
-                obscureText: true,
-                autocorrect: false,
-                textInputAction: TextInputAction.done,
-                keyboardAppearance: Brightness.light,
-                onEditingComplete: () => _passwordEditingComplete(state),
-              ),
-              gapH8,
-              PrimaryButton(
-                text: l.signInSignIn,
-                isLoading: state.isLoading,
-                onPressed: state.isLoading ? null : () => _submit(state),
-              ),
-            ],
+                gapH8,
+                PrimaryButton(
+                  text: l.signInSignIn,
+                  isLoading: state.isLoading,
+                  onPressed: state.isLoading ? null : () => _submit(state),
+                ),
+              ],
+            ),
           ),
         ),
       ),
