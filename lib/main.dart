@@ -37,7 +37,7 @@ void main() async {
   registerErrorHandlers(errorLogger);
   runApp(UncontrolledProviderScope(
     container: container,
-    child: MyApp(title: packageInfo.appName),
+    child: VanHolst(title: packageInfo.appName),
   ));
 }
 

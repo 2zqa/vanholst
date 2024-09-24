@@ -37,7 +37,7 @@ class SettingsRepository {
     return Settings.fromJson(record);
   }
 
-  Stream<Settings> settingsStateChanges() {
+  Stream<Settings> watchSettings() {
     final record = store.record(_settingsKey);
     return record.onSnapshot(db).map((snapshot) {
       if (snapshot != null) {
@@ -59,8 +59,8 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
   throw UnimplementedError('Provider not overridden; see main.dart');
 });
 
-final settingsStateChangesProvider =
+final settingsProvider =
     StreamProvider.autoDispose<Settings>((ref) {
   final settingsRepository = ref.watch(settingsRepositoryProvider);
-  return settingsRepository.settingsStateChanges();
+  return settingsRepository.watchSettings();
 });
