@@ -1,6 +1,6 @@
 # <img src="/assets/app-icon.png" height="32px" width="32px" alt="App icon"></img> Schema and logbook for van Holst Coaching
 
-An app to view and edit the schema and logbook of the van Holst coaching service.
+An app to view and edit the schema and logbook of the van Holst Coaching service.
 
 The following course was used to develop this app:
 
@@ -18,4 +18,4 @@ code .
 
 ## License
 
-VanHolst is licensed under the [MIT](LICENSE) license.
+Schema and logbook for van Holst Coaching is licensed under the [MIT](LICENSE) license.

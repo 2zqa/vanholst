@@ -18,7 +18,7 @@ class HomeAppBar extends ConsumerWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AppBar(
-      title: Text('Van Holst'.hardcoded),
+      title: Text('van Holst Coaching'.hardcoded),
       actions: [
         if (refreshKey != null)
           IconButton(

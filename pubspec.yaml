@@ -1,5 +1,5 @@
 name: vanholst
-description: View and edit your schema and logbook entries for the Van Holst website.
+description: View and edit your schema and logbook entries for the van Holst Coaching website.
 
 # Prevent accidental publishing to pub.dev.
 publish_to: "none"
