@@ -4,8 +4,8 @@ import 'package:flutter_localized_locales/flutter_localized_locales.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:vanholst/src/common_widgets/async_value_widget.dart';
+import 'package:vanholst/src/features/settings/application/settings_service.dart';
 import 'package:vanholst/src/features/settings/data/settings_repository.dart';
-import 'package:vanholst/src/features/settings/domain/settings.dart';
 import 'package:vanholst/src/utils/radio_button_dialog.dart';
 
 class LanguageTile extends AbstractSettingsTile {
@@ -24,7 +24,7 @@ class LanguageTile extends AbstractSettingsTile {
     return Consumer(
       builder: (context, ref, child) {
         final settingsValue = ref.watch(settingsProvider);
-        final settingsRepository = ref.watch(settingsRepositoryProvider);
+        final settingsService = ref.watch(settingsServiceProvider);
         const locales = AppLocalizations.supportedLocales;
         return AsyncValueWidget(
           value: settingsValue,
@@ -36,8 +36,7 @@ class LanguageTile extends AbstractSettingsTile {
               title: Text(localizations.settingsLanguage),
               value: Text(localeLabel),
               onPressed: (context) async {
-                // TODO: Move to service
-                final String? localeString = await showRadioDialog<String>(
+                final localeString = await showRadioDialog(
                   title: Text(localizations.settingsLanguage),
                   context: context,
                   values: ['', ...locales.map((l) => l.toLanguageTag())],
@@ -50,13 +49,7 @@ class LanguageTile extends AbstractSettingsTile {
                         value;
                   },
                 );
-
-                if (localeString == null) return;
-                final Locale? locale =
-                    localeString.isNotEmpty ? Locale(localeString) : null;
-                final Settings updatedSettings =
-                    settings.copyWith(locale: () => locale);
-                return settingsRepository.storeSettings(updatedSettings);
+                await settingsService.setLocale(localeString, settings);
               },
             );
           },
