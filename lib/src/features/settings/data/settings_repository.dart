@@ -51,6 +51,7 @@ class SettingsRepository {
   Settings get currentSettings => _currentSettings;
 
   Future<void> storeSettings(Settings settings) async {
+    _currentSettings = settings;
     await store.record(_settingsKey).put(db, settings.toJson());
   }
 }
@@ -59,8 +60,7 @@ final settingsRepositoryProvider = Provider<SettingsRepository>((ref) {
   throw UnimplementedError('Provider not overridden; see main.dart');
 });
 
-final settingsProvider =
-    StreamProvider.autoDispose<Settings>((ref) {
+final settingsProvider = StreamProvider.autoDispose<Settings>((ref) {
   final settingsRepository = ref.watch(settingsRepositoryProvider);
   return settingsRepository.watchSettings();
 });
