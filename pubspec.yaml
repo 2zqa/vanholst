@@ -4,7 +4,7 @@ description: View and edit your schema and logbook entries for the van Holst Coa
 # Prevent accidental publishing to pub.dev.
 publish_to: "none"
 
-version: 1.0.0+1
+version: 0.0.4
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
