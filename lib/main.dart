@@ -10,6 +10,7 @@ import 'package:vanholst/src/exceptions/error_logger.dart';
 import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/fake_auth_repository.dart';
 import 'package:vanholst/src/features/authentication/data/wordpress_auth_repository.dart';
+import 'package:vanholst/src/features/settings/data/package_info_repository.dart';
 import 'package:vanholst/src/features/settings/data/settings_repository.dart';
 
 void main() async {
@@ -31,10 +32,12 @@ void main() async {
     observers: [AsyncErrorLogger()],
   );
   final errorLogger = container.read(errorLoggerProvider);
+  final packageInfoRepository = container.read(packageInfoRepositoryProvider);
+  final packageInfo = await packageInfoRepository.getPackageInfo();
   registerErrorHandlers(errorLogger);
   runApp(UncontrolledProviderScope(
     container: container,
-    child: const MyApp(),
+    child: MyApp(title: packageInfo.appName),
   ));
 }
 

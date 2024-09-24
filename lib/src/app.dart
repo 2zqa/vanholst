@@ -5,7 +5,8 @@ import 'package:vanholst/src/constants/uris.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 
 class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.title});
+  final String title;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,7 +16,7 @@ class MyApp extends ConsumerWidget {
       restorationScopeId: 'app',
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      title: Uris.appName,
+      title: title,
       theme: ThemeData(
         // * Use this to toggle Material 3 (defaults to true since Flutter 3.16)
         useMaterial3: true,
