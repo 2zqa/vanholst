@@ -7,7 +7,6 @@ on:
 jobs:
   check-version:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -22,7 +21,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-
+    needs: check-version
     steps:
       - uses: actions/checkout@v4
 
@@ -51,8 +50,11 @@ jobs:
       - name: Restore packages
         run: flutter pub get
 
-      - name: Build APKs
-        run: flutter build apk --split-per-abi
+      - name: Build arm64 APK
+        run: flutter build apk --target-platform android-arm64 --split-per-abi
+
+      - name: Build Linux binary
+        run: flutter build linux
 
       - uses: actions/upload-artifact@v4
         with:
