@@ -116,7 +116,7 @@ class WordpressLogbookRepository implements LogbookRepository {
     if (user == null) {
       throw NotLoggedInException();
     }
-    final (tableNonce, tableId) = await _getNonceAndTableID(user);
+    final (tableNonce, tableId) = await _getNonceAndTableIDList(user);
     final json = await _getRowJson(user, tableNonce, tableId);
 
     _updateCache(json);
@@ -137,7 +137,7 @@ class WordpressLogbookRepository implements LogbookRepository {
     if (user == null) {
       throw NotLoggedInException();
     }
-    final (tableNonce, tableId) = await _getNonceAndTableID(user);
+    final (tableNonce, tableId) = await _getNonceAndTableIDUpdate(user);
     final url = Uri.parse(_vanholstAdminUri);
     final String formData = entry.toFormData(tableNonce, tableId);
     final headers = getImpersonatingSchemaHeaders(authCookie: user.cookie);
@@ -151,13 +151,11 @@ class WordpressLogbookRepository implements LogbookRepository {
     }
   }
 
-  Future<(String, String)> _getNonceAndTableID(AppUser appUser) async {
+  Future<(String, String)> _getNonceAndTableID(AppUser appUser, String regexPattern) async {
     final response = await _getVanHolstLogbookResponse(appUser);
     if (response.statusCode == 200) {
       final body = response.body;
-      final match =
-          RegExp(r'name="wdtNonceFrontendServerSide_(\d+)" value="(\w+)"')
-              .firstMatch(body);
+      final match = RegExp(regexPattern).firstMatch(body);
       if (match == null) {
         throw ParseException();
       }
@@ -170,6 +168,14 @@ class WordpressLogbookRepository implements LogbookRepository {
     } else {
       throw ParseException();
     }
+  }
+
+  Future<(String, String)> _getNonceAndTableIDUpdate(AppUser appUser) {
+    return _getNonceAndTableID(appUser, r'name="wdtNonceFrontendEdit_(\d+)" value="(\w+)"');
+  }
+
+  Future<(String, String)> _getNonceAndTableIDList(AppUser appUser) {
+    return _getNonceAndTableID(appUser, r'name="wdtNonceFrontendServerSide_(\d+)" value="(\w+)"');
   }
 
   void _updateCache(List<dynamic> json) {
