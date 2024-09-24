@@ -49,7 +49,7 @@ class LanguageTile extends AbstractSettingsTile {
                         value;
                   },
                 );
-                await settingsService.setLocale(localeString, settings);
+                await settingsService.setLocale(localeString);
               },
             );
           },

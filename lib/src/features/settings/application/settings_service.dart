@@ -8,17 +8,19 @@ class SettingsService {
 
   SettingsService(this.settingsRepository);
 
-  Future<void> setTheme(ThemeMode? themeMode, Settings oldSettings) async {
+  Future<void> setTheme(ThemeMode? themeMode) async {
     if (themeMode == null) return;
-    final Settings updatedSettings = oldSettings.copyWith(themeMode: themeMode);
+    final settings = settingsRepository.currentSettings;
+    final Settings updatedSettings = settings.copyWith(themeMode: themeMode);
     return settingsRepository.storeSettings(updatedSettings);
   }
 
-  Future<void> setLocale(String? localeString, Settings oldSettings) async {
+  Future<void> setLocale(String? localeString) async {
     if (localeString == null) return;
+    final settings = settingsRepository.currentSettings;
     final Locale? locale =
         localeString.isNotEmpty ? Locale(localeString) : null;
-    final Settings updatedSettings = oldSettings.copyWith(locale: () => locale);
+    final Settings updatedSettings = settings.copyWith(locale: () => locale);
     return settingsRepository.storeSettings(updatedSettings);
   }
 }

@@ -42,7 +42,7 @@ class ThemeTile extends AbstractSettingsTile {
                       _localizeThemeMode(themeMode, localizations),
                   title: Text(localizations.settingsTheme),
                 );
-                await settingsService.setTheme(themeMode, settings);
+                await settingsService.setTheme(themeMode);
               },
             );
           },
