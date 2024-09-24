@@ -44,7 +44,6 @@ class App extends ConsumerWidget {
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black87,
           foregroundColor: Colors.white,
-          elevation: 0,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
@@ -61,7 +60,6 @@ class App extends ConsumerWidget {
       ).copyWith(
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.black87,
-          elevation: 0,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
