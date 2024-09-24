@@ -5,6 +5,21 @@ on:
     tags: 'v*.*.*'
 
 jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check version
+        run: |
+          TAG_VERSION=${GITHUB_REF#refs/tags/v}
+          PUBSPEC_VERSION=$(grep '^version: ' pubspec.yaml | sed 's/version: //')
+          if [ "$TAG_VERSION" != "$PUBSPEC_VERSION" ]; then
+            echo "Version mismatch: tag version is $TAG_VERSION but pubspec.yaml version is $PUBSPEC_VERSION" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
   build:
     runs-on: ubuntu-latest
 
