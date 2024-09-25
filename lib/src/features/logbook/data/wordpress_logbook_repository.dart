@@ -112,15 +112,7 @@ class WordpressLogbookRepository implements LogbookRepository {
 
   @override
   Future<List<LogbookEntry>> getLogbookEntryList() async {
-    final user = appUser;
-    if (user == null) {
-      throw NotLoggedInException();
-    }
-    final (tableNonce, tableId) = await _getNonceAndTableIDList(user);
-    final json = await _getRowJson(user, tableNonce, tableId);
-
-    _updateCache(json);
-    return cache.values.toList();
+    return _getLogbookEntries();
   }
 
   @override
@@ -152,9 +144,20 @@ class WordpressLogbookRepository implements LogbookRepository {
   }
 
   @override
-  Future<List<LogbookEntry>> searchLogbook(String query) {
-    // TODO: implement searchLogbookEntries
-    throw UnimplementedError();
+  Future<List<LogbookEntry>> searchLogbook(String query) async {
+    return _getLogbookEntries(query: query);
+  }
+
+  Future<List<LogbookEntry>> _getLogbookEntries({String query = ''}) async {
+    final user = appUser;
+    if (user == null) {
+      throw NotLoggedInException();
+    }
+    final (tableNonce, tableId) = await _getNonceAndTableIDList(user);
+    final json = await _getRowJson(user, tableNonce, tableId, query: query);
+
+    _updateCache(json);
+    return cache.values.toList();
   }
 
   Future<(String, String)> _getNonceAndTableID(
@@ -209,12 +212,17 @@ class WordpressLogbookRepository implements LogbookRepository {
   }
 
   Future<List<dynamic>> _getRowJson(
-      AppUser user, String tableNonce, String tableId) async {
+    AppUser user,
+    String tableNonce,
+    String tableId, {
+    String query = '',
+  }) async {
     final url =
         Uri.parse("$_vanholstAdminUri?action=get_wdtable&table_id=$tableId");
     final formData = {
       ..._defaultFormData,
       'length': _queryCount.toString(),
+      'columns[8][search][value]': query,
       'wdtNonce': tableNonce,
     };
     final headers = getImpersonatingSchemaHeaders(authCookie: user.cookie);
