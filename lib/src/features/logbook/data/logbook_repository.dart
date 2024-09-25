@@ -57,6 +57,9 @@ final logbookSearchProvider = FutureProvider.autoDispose
     .family<List<LogbookEntry>, String>((ref, query) async {
   final logbookRepository = ref.watch(logbookRepositoryProvider);
 
-  await debounce(const Duration(milliseconds: 750), ref);
-  return logbookRepository.searchLogbook(query);
+  return debounce(
+    duration: const Duration(milliseconds: 750),
+    ref: ref,
+    callback: () => logbookRepository.searchLogbook(query),
+  );
 });
