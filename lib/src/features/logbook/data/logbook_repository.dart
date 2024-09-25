@@ -44,13 +44,8 @@ final logbookNotifierProvider =
 
 final logbookEntryProvider =
     FutureProvider.family<LogbookEntry?, String>((ref, id) async {
-  final logbook = await ref.watch(logbookNotifierProvider.future);
-  for (var entry in logbook) {
-    if (entry.id == id) {
-      return entry;
-    }
-  }
-  return null;
+  final logbook = ref.watch(logbookRepositoryProvider);
+  return logbook.getLogbookEntry(id);
 });
 
 final logbookSearchProvider =
