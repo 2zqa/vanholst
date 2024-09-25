@@ -156,8 +156,9 @@ class WordpressLogbookRepository implements LogbookRepository {
     final (tableNonce, tableId) = await _getNonceAndTableIDList(user);
     final json = await _getRowJson(user, tableNonce, tableId, query: query);
 
-    _updateCache(json);
-    return cache.values.toList();
+    final entries = _parseJson(json);
+    _updateCache(entries);
+    return entries;
   }
 
   Future<(String, String)> _getNonceAndTableID(
@@ -196,10 +197,16 @@ class WordpressLogbookRepository implements LogbookRepository {
     );
   }
 
-  void _updateCache(List<dynamic> json) {
-    cache = {};
+  List<LogbookEntry> _parseJson(List<dynamic> json) {
+    final List<LogbookEntry> entries = [];
     for (final row in json) {
-      final entry = LogbookEntry.fromSchema(row);
+      entries.add(LogbookEntry.fromSchema(row));
+    }
+    return entries;
+  }
+
+  void _updateCache(List<LogbookEntry> entries) {
+    for (final entry in entries) {
       cache[entry.id] = entry;
     }
   }
