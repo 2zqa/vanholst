@@ -53,13 +53,14 @@ final logbookEntryProvider =
   return null;
 });
 
-final logbookSearchProvider = FutureProvider.autoDispose
-    .family<List<LogbookEntry>, String>((ref, query) async {
+final logbookSearchProvider =
+    FutureProvider.family<List<LogbookEntry>, String>((ref, query) async {
   final logbookRepository = ref.watch(logbookRepositoryProvider);
 
   return debounce(
     duration: const Duration(milliseconds: 750),
     ref: ref,
     callback: () => logbookRepository.searchLogbook(query),
+    fallback: [],
   );
 });

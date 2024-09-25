@@ -7,7 +7,7 @@ final logbookSearchQueryStateProvider = StateProvider<String>((ref) {
 });
 
 final logbookSearchResultsProvider =
-    FutureProvider.autoDispose<List<LogbookEntry>>((ref) async {
+    FutureProvider<List<LogbookEntry>>((ref) async {
   final searchQuery = ref.watch(logbookSearchQueryStateProvider);
   return ref.watch(logbookSearchProvider(searchQuery).future);
 });
