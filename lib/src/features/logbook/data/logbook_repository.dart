@@ -5,6 +5,7 @@ import 'package:vanholst/src/features/authentication/data/auth_repository.dart';
 import 'package:vanholst/src/features/logbook/data/fake_logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/data/wordpress_logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
+import 'package:vanholst/src/utils/debounce.dart';
 
 abstract class LogbookRepository {
   Future<List<LogbookEntry>> getLogbookEntryList();
@@ -52,8 +53,10 @@ final logbookEntryProvider =
   return null;
 });
 
-final logbookSearchProvider =
-    FutureProvider.family<List<LogbookEntry>, String>((ref, query) async {
+final logbookSearchProvider = FutureProvider.autoDispose
+    .family<List<LogbookEntry>, String>((ref, query) async {
   final logbookRepository = ref.watch(logbookRepositoryProvider);
+
+  await debounce(const Duration(milliseconds: 750), ref);
   return logbookRepository.searchLogbook(query);
 });
