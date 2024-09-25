@@ -10,6 +10,7 @@ abstract class LogbookRepository {
   Future<List<LogbookEntry>> getLogbookEntryList();
   Future<LogbookEntry?> getLogbookEntry(String id);
   Future<void> updateLogbookEntry(LogbookEntry entry);
+  Future<List<LogbookEntry>> searchLogbook(String query);
 }
 
 final logbookRepositoryProvider = Provider<LogbookRepository>((ref) {
@@ -49,4 +50,10 @@ final logbookEntryProvider =
     }
   }
   return null;
+});
+
+final logbookSearchProvider =
+    FutureProvider.family<List<LogbookEntry>, String>((ref, query) async {
+  final logbookRepository = ref.watch(logbookRepositoryProvider);
+  return logbookRepository.searchLogbook(query);
 });

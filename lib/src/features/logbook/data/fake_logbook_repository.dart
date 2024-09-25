@@ -48,4 +48,13 @@ class FakeLogbookRepository implements LogbookRepository {
       _entries[index] = entry;
     }
   }
+
+  @override
+  Future<List<LogbookEntry>> searchLogbook(String query) async {
+    await Future.delayed(const Duration(seconds: 1));
+    return Future.value(_entries.where((e) {
+      final String performance = e.performance ?? '';
+      return performance.toLowerCase().contains(query.toLowerCase());
+    }).toList());
+  }
 }

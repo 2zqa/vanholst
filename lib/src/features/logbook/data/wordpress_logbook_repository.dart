@@ -151,6 +151,12 @@ class WordpressLogbookRepository implements LogbookRepository {
     }
   }
 
+  @override
+  Future<List<LogbookEntry>> searchLogbook(String query) {
+    // TODO: implement searchLogbookEntries
+    throw UnimplementedError();
+  }
+
   Future<(String, String)> _getNonceAndTableID(
     AppUser appUser,
     String regexPattern,
