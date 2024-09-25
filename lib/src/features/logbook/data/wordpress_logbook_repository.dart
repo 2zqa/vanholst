@@ -151,7 +151,10 @@ class WordpressLogbookRepository implements LogbookRepository {
     }
   }
 
-  Future<(String, String)> _getNonceAndTableID(AppUser appUser, String regexPattern) async {
+  Future<(String, String)> _getNonceAndTableID(
+    AppUser appUser,
+    String regexPattern,
+  ) async {
     final response = await _getVanHolstLogbookResponse(appUser);
     if (response.statusCode == 200) {
       final body = response.body;
@@ -171,11 +174,17 @@ class WordpressLogbookRepository implements LogbookRepository {
   }
 
   Future<(String, String)> _getNonceAndTableIDUpdate(AppUser appUser) {
-    return _getNonceAndTableID(appUser, r'name="wdtNonceFrontendEdit_(\d+)" value="(\w+)"');
+    return _getNonceAndTableID(
+      appUser,
+      r'name="wdtNonceFrontendEdit_(\d+)" value="(\w+)"',
+    );
   }
 
   Future<(String, String)> _getNonceAndTableIDList(AppUser appUser) {
-    return _getNonceAndTableID(appUser, r'name="wdtNonceFrontendServerSide_(\d+)" value="(\w+)"');
+    return _getNonceAndTableID(
+      appUser,
+      r'name="wdtNonceFrontendServerSide_(\d+)" value="(\w+)"',
+    );
   }
 
   void _updateCache(List<dynamic> json) {
