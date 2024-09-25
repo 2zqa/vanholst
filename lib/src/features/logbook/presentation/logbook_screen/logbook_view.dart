@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 import 'package:vanholst/src/common_widgets/async_sliver_value_widget.dart';
 import 'package:vanholst/src/common_widgets/responsive_center.dart';
 import 'package:vanholst/src/constants/app_sizes.dart';
-import 'package:vanholst/src/features/logbook/data/logbook_repository.dart';
 import 'package:vanholst/src/features/logbook/domain/logbook_entry.dart';
 import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_entry_list_item.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_search_state_provider.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 import 'package:vanholst/src/routing/app_router.dart';
 import 'package:vanholst/src/utils/is_today.dart';
@@ -17,13 +17,13 @@ class LogbookView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final logbookValue = ref.watch(logbookNotifierProvider);
+    final logbookValue = ref.watch(logbookSearchResultsProvider);
     return AsyncValueSliverWidget(
       value: logbookValue,
       data: (entries) => entries.isEmpty
           ? ResponsiveSliverCenter(
               child: Text(
-                'No products found'.hardcoded,
+                'No logbook entries found'.hardcoded,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
             )

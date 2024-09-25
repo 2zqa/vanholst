@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vanholst/src/features/logbook/presentation/logbook_screen/logbook_search_state_provider.dart';
 import 'package:vanholst/src/localization/string_hardcoded.dart';
 
 /// Search field used to filter products by name
-class LogbookSearchTextField extends StatefulWidget {
+class LogbookSearchTextField extends ConsumerStatefulWidget {
   const LogbookSearchTextField({super.key});
 
   @override
-  State<LogbookSearchTextField> createState() => _LogbookSearchTextFieldState();
+  ConsumerState<LogbookSearchTextField> createState() =>
+      _LogbookSearchTextFieldState();
 }
 
-class _LogbookSearchTextFieldState extends State<LogbookSearchTextField> {
+class _LogbookSearchTextFieldState
+    extends ConsumerState<LogbookSearchTextField> {
   final _controller = TextEditingController();
 
   @override
@@ -32,20 +36,22 @@ class _LogbookSearchTextFieldState extends State<LogbookSearchTextField> {
           autofocus: false,
           style: Theme.of(context).textTheme.titleLarge,
           decoration: InputDecoration(
-            hintText: 'Search products'.hardcoded,
+            hintText: 'Search performances'.hardcoded,
             icon: const Icon(Icons.search),
             suffixIcon: value.text.isNotEmpty
                 ? IconButton(
                     onPressed: () {
                       _controller.clear();
-                      // TODO: Clear search state
+                      ref.read(logbookSearchQueryStateProvider.notifier).state =
+                          '';
                     },
                     icon: const Icon(Icons.clear),
                   )
                 : null,
           ),
-          // TODO: Implement onChanged
-          onChanged: null,
+          onChanged: (value) {
+            ref.read(logbookSearchQueryStateProvider.notifier).state = value;
+          },
         );
       },
     );
