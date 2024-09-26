@@ -143,12 +143,29 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                   decoration: InputDecoration(
                     labelText: l.signInPassword,
                     enabled: !state.isLoading,
+                    suffixIcon: state.isPasswordHidden
+                        ? IconButton(
+                            icon: const Icon(Icons.visibility),
+                            onPressed: () {
+                              ref
+                                  .read(signInControllerProvider.notifier)
+                                  .togglePasswordVisibility();
+                            },
+                          )
+                        : IconButton(
+                            icon: const Icon(Icons.visibility_off),
+                            onPressed: () {
+                              ref
+                                  .read(signInControllerProvider.notifier)
+                                  .togglePasswordVisibility();
+                            },
+                          ),
                   ),
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (password) => !_submitted
                       ? null
                       : state.passwordErrorText(password ?? '', l),
-                  obscureText: true,
+                  obscureText: state.isPasswordHidden,
                   autocorrect: false,
                   textInputAction: TextInputAction.done,
                   keyboardAppearance: Brightness.light,

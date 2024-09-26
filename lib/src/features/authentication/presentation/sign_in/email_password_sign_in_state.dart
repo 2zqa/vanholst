@@ -15,31 +15,38 @@ mixin EmailAndPasswordValidators {
 class SignInState with EmailAndPasswordValidators {
   SignInState({
     this.value = const AsyncValue.data(null),
+    this.isPasswordHidden = true,
   });
 
   final AsyncValue<void> value;
+  final bool isPasswordHidden;
   bool get isLoading => value.isLoading;
 
   SignInState copyWith({
     AsyncValue<void>? value,
+    bool? isPasswordHidden,
   }) {
     return SignInState(
       value: value ?? this.value,
+      isPasswordHidden: isPasswordHidden ?? this.isPasswordHidden,
     );
   }
 
   @override
-  String toString() => 'SignInState(value: $value)';
+  String toString() =>
+      'SignInState(value: $value, isPasswordHidden: $isPasswordHidden)';
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is SignInState && other.value == value;
+    return other is SignInState &&
+        other.value == value &&
+        other.isPasswordHidden == isPasswordHidden;
   }
 
   @override
-  int get hashCode => value.hashCode;
+  int get hashCode => value.hashCode ^ isPasswordHidden.hashCode;
 }
 
 extension SignInStateX on SignInState {
