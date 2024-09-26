@@ -112,6 +112,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 gapH8,
                 // Email field
                 TextFormField(
+                  autofillHints: const [AutofillHints.username],
                   key: SignInScreen.emailKey,
                   controller: _emailController,
                   decoration: InputDecoration(
@@ -136,6 +137,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                 gapH8,
                 // Password field
                 TextFormField(
+                  autofillHints: const [AutofillHints.password],
                   key: SignInScreen.passwordKey,
                   controller: _passwordController,
                   decoration: InputDecoration(
