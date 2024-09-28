@@ -196,12 +196,11 @@ class LogbookEntry {
         timestamp.hashCode;
   }
 
+  /// Creates a new [LogbookEntry] from this one by updating individual
+  /// properties. Does not allow changing fields that should not be changed
+  /// after initialization.
   LogbookEntry copyWith({
-    String? userId,
-    LogbookEntryID? id,
     ValueGetter<String?>? infoForCoach,
-    String? date,
-    String? shortDayName,
     String? program,
     ValueGetter<String?>? sleep,
     ValueGetter<String?>? timings,
@@ -209,24 +208,23 @@ class LogbookEntry {
     ValueGetter<String?>? circumstances,
     ValueGetter<String?>? km,
     String? link,
-    ValueGetter<String?>? feedbackCoach,
-    String? timestamp,
   }) {
     return LogbookEntry(
-      userId: userId ?? this.userId,
-      id: id ?? this.id,
+      userId: userId,
+      id: id,
       infoForCoach: infoForCoach != null ? infoForCoach() : this.infoForCoach,
-      date: date ?? this.date,
-      shortDayName: shortDayName ?? this.shortDayName,
+      date: date,
+      shortDayName: shortDayName,
       program: program ?? this.program,
       sleep: sleep != null ? sleep() : this.sleep,
       timings: timings != null ? timings() : this.timings,
       performance: performance != null ? performance() : this.performance,
-      circumstances: circumstances != null ? circumstances() : this.circumstances,
+      circumstances:
+          circumstances != null ? circumstances() : this.circumstances,
       km: km != null ? km() : this.km,
       link: link ?? this.link,
-      feedbackCoach: feedbackCoach != null ? feedbackCoach() : this.feedbackCoach,
-      timestamp: timestamp ?? this.timestamp,
+      feedbackCoach: feedbackCoach,
+      timestamp: timestamp,
     );
   }
 }
