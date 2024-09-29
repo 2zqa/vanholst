@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:html_character_entities/html_character_entities.dart';
+import 'package:vanholst/src/utils/decode_or_null.dart';
 
 /// * The logbook entry identifier is an important concept and can have its own type.
 typedef LogbookEntryID = String;
@@ -70,19 +72,19 @@ class LogbookEntry {
   /// API.
   LogbookEntry.fromSchema(List<dynamic> schema)
       // comments are the column names in the schema on the website
-      : userId = schema[0]!,
-        id = schema[1]!,
-        infoForCoach = schema[2], // info_voor_coach
-        date = schema[3]!, // dag
-        shortDayName = schema[4]!, // d
-        program = schema[5], // programma
+      : userId = schema[0],
+        id = schema[1],
+        infoForCoach = decodeOrNull(schema[2]), // info_voor_coach
+        date = schema[3], // dag
+        shortDayName = schema[4], // d
+        program = HtmlCharacterEntities.decode(schema[5]), // programma
         sleep = schema[6], // Slaap
         timings = schema[7], // tijden
-        performance = schema[8], // uitvoering
-        circumstances = schema[9], // omstandigheden
-        km = schema[10], // km // CAN BE NULL
+        performance = decodeOrNull(schema[8]), // uitvoering
+        circumstances = decodeOrNull(schema[9]), // omstandigheden
+        km = schema[10], // km
         link = schema[11], // link
-        feedbackCoach = schema[12], // Feedback_coach
+        feedbackCoach = decodeOrNull(schema[12]), // Feedback_coach
         timestamp = schema[13];
 
   String toFormData(String tableNonce, String tableId) {
