@@ -5,7 +5,7 @@ import 'package:vanholst/src/features/authentication/presentation/sign_in/string
 
 /// Mixin class to be used for client-side email & password validation
 mixin EmailAndPasswordValidators {
-  final StringValidator emailSubmitValidator = EmailSubmitRegexValidator();
+  final StringValidator emailSubmitValidator = UsernameSubmitRegexValidator();
   final StringValidator passwordSignInSubmitValidator =
       NonEmptyStringValidator();
 }

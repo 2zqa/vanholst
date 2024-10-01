@@ -46,12 +46,13 @@ class ValidatorInputFormatter implements TextInputFormatter {
   }
 }
 
-class EmailEditingRegexValidator extends RegexValidator {
-  EmailEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
+class UsernameEditingRegexValidator extends RegexValidator {
+  UsernameEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
 }
 
-class EmailSubmitRegexValidator extends RegexValidator {
-  EmailSubmitRegexValidator() : super(regexSource: '^\\S+@\\S+\\.\\S+\$');
+class UsernameSubmitRegexValidator extends RegexValidator {
+  UsernameSubmitRegexValidator()
+      : super(regexSource: '^(?:[A-Za-z]+|\\S+@\\S+\\.\\S+)\$');
 }
 
 class NonEmptyStringValidator extends StringValidator {

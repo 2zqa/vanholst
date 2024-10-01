@@ -131,7 +131,7 @@ class _SignInContentsState extends ConsumerState<SignInContents> {
                   onEditingComplete: () => _emailEditingComplete(state),
                   inputFormatters: <TextInputFormatter>[
                     ValidatorInputFormatter(
-                        editingValidator: EmailEditingRegexValidator()),
+                        editingValidator: UsernameEditingRegexValidator()),
                   ],
                 ),
                 gapH8,
