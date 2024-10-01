@@ -46,10 +46,12 @@ class ValidatorInputFormatter implements TextInputFormatter {
   }
 }
 
+/// Matches empty strings or strings without whitespace.
 class UsernameEditingRegexValidator extends RegexValidator {
   UsernameEditingRegexValidator() : super(regexSource: '^(|\\S)+\$');
 }
 
+/// Matches usernames or email addresses.
 class UsernameSubmitRegexValidator extends RegexValidator {
   UsernameSubmitRegexValidator()
       : super(regexSource: '^(?:[A-Za-z]+|\\S+@\\S+\\.\\S+)\$');
