@@ -43,6 +43,10 @@ class LogbookEntry {
     required this.timestamp,
   });
 
+  /// Returns true if the entry has info for coach or performance filled in.
+  bool get isFilledIn =>
+      infoForCoach?.isNotEmpty == true || performance?.isNotEmpty == true;
+
   DateTime? get dateTime {
     final parts = date.split('/');
     if (parts.length != 3) {

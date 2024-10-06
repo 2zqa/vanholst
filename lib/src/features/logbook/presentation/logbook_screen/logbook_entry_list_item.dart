@@ -9,11 +9,13 @@ class LogbookEntryListItem extends StatelessWidget {
     required this.entry,
     this.onPressed,
     this.onEditPressed,
+    this.isFilledIn = false,
     this.selected = false,
   });
   final LogbookEntry entry;
   final VoidCallback? onPressed;
   final VoidCallback? onEditPressed;
+  final bool isFilledIn;
   final bool selected;
 
   @override
@@ -25,11 +27,32 @@ class LogbookEntryListItem extends StatelessWidget {
       selected: selected,
       selectedTileColor: Theme.of(context).colorScheme.primaryContainer,
       selectedColor: Theme.of(context).colorScheme.onPrimaryContainer,
-      trailing: IconButton(
-        icon: const Icon(Icons.edit),
-        color:
-            Theme.of(context).colorScheme.onPrimaryContainer.withOpacity(0.5),
-        onPressed: onEditPressed,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            width: 40,
+            height: 40,
+            child: Icon(
+              isFilledIn ? Icons.check_circle : Icons.circle,
+              size: 24,
+              color: isFilledIn
+                  ? Theme.of(context).colorScheme.primary
+                  : Theme.of(context)
+                      .colorScheme
+                      .onPrimaryContainer
+                      .withOpacity(0.5),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.edit),
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimaryContainer
+                .withOpacity(0.5),
+            onPressed: onEditPressed,
+          ),
+        ],
       ),
       leading: program.isEmpty
           ? const SizedBox.shrink()

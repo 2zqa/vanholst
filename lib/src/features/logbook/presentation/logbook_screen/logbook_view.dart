@@ -51,6 +51,7 @@ class LogbookEntryList extends StatelessWidget {
           child: LogbookEntryListItem(
             entry: entry,
             selected: entry.dateTime?.isToday == true,
+            isFilledIn: entry.isFilledIn,
             onEditPressed: () => context.goNamed(
               AppRoute.logbookEntryEdit.name,
               pathParameters: {'id': entry.id},
