@@ -55,15 +55,10 @@ class LogbookEntry {
     );
   }
 
-  /// [link] is in format
-  /// "`<a href='https://connect.garmin.com/modern/activity/88888888888' rel='nofollow' target='_blank'><button class=''>GPS</button></a>`"
-  /// or a blank string. Parses the a tag to get the actual URL.
-  Uri get linkUri {
-    final match = RegExp(r"href='(.*?)'").firstMatch(link);
-    if (match == null) {
-      return Uri();
-    }
-    return Uri.parse(match.group(1)!);
+  /// Try to get the link from a anchor tag. If no link is found, return the
+  /// original string.
+  static String _convertlink(String link) {
+    return RegExp(r"href='(.*?)'").firstMatch(link)?.group(1) ?? link;
   }
 
   /// Creates a [LogbookEntry] object from the given [schema].
@@ -83,7 +78,7 @@ class LogbookEntry {
         performance = decodeOrNull(schema[8]), // uitvoering
         circumstances = decodeOrNull(schema[9]), // omstandigheden
         km = schema[10], // km
-        link = schema[11], // link
+        link = _convertlink(schema[11] as String), // link
         feedbackCoach = decodeOrNull(schema[12]), // Feedback_coach
         timestamp = schema[13];
 
@@ -104,7 +99,7 @@ class LogbookEntry {
       'formdata[uitvoering]': performance ?? '',
       'formdata[omstandigheden]': circumstances ?? '',
       'formdata[km]': km ?? '',
-      'formdata[link]': linkUri.toString(),
+      'formdata[link]': link,
       'formdata[Feedback_coach]': feedbackCoach ?? '',
       'formdata[timestamp]': timestamp,
     };
