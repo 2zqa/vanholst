@@ -45,4 +45,4 @@ flutter:
   generate: true
 
   assets:
-    - assets/images/
+    - android/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp

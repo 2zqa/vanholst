@@ -1,4 +1,4 @@
-# <img src="/assets/app-icon.png" height="32px" width="32px" alt="App icon"></img> Schema and logbook for van Holst Coaching
+# <img src="/android/app/src/main/res/mipmap-mdpi/ic_launcher.webp" height="32px" width="32px" alt="App icon"></img> Schema and logbook for van Holst Coaching
 
 An app to view and edit the schema and logbook of the van Holst Coaching service.
 
