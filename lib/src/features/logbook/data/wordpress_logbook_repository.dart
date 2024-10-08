@@ -107,7 +107,6 @@ class WordpressLogbookRepository implements LogbookRepository {
   WordpressLogbookRepository(this.appUser);
   final AppUser? appUser;
   static const _queryCount = 25;
-  static const tableId = 352;
   Map<LogbookEntryID, LogbookEntry> cache = {};
 
   @override
