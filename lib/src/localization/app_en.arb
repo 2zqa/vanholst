@@ -78,7 +78,7 @@
   "settingsSystemLanguage": "System language",
   "settingsReportIssue": "Report a bug",
   "settingsReportIssueDescription": "Oh no, you encountered a bug? Let me know and I will try to fix it. Press {send} below to write an email.\n\nPlease include a description of the problem and how to reproduce it. Thank you!",
-  "@reportBugDialogDescription": {
+  "@settingsReportIssueDescription": {
     "description": "Description of how to report a bug, shown in the report bug dialog",
     "placeholders": {
       "send": {
