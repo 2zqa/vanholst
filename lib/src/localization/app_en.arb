@@ -1,14 +1,23 @@
 {
   "@@locale": "en",
   "appDescription": "Hardloopbegeleiding op elk niveau",
+  "@appDescription": {},
   "appErrorMessage": "An error occurred",
+  "@appErrorMessage": {},
   "signInTitle": "Sign in",
+  "@signInTitle": {},
   "signInLogin": "Email or username",
+  "@signInLogin": {},
   "signInPassword": "Password",
+  "@signInPassword": {},
   "signInSignIn": "Sign in",
+  "@signInSignIn": {},
   "signInEmptyUsernameError": "Email can't be empty",
+  "@signInEmptyUsernameError": {},
   "signInInvalidUsernameError": "Invalid email or username",
+  "@signInInvalidUsernameError": {},
   "signInEmptyPasswordError": "Password can't be empty",
+  "@signInEmptyPasswordError": {},
   "logbookNotProvided": "not provided",
   "@logbookNotProvided": {
     "description": "The default value for when a logbook field is not provided. Dynamically capitalized."
@@ -24,11 +33,13 @@
     }
   },
   "logbookNoProgram": "No program provided",
+  "@logbookNoProgram": {},
   "logbookNoProgramBrief": "No program",
   "@logbookNoProgramBrief": {
     "description": "Shorter variant, shown in the logbook entry list"
   },
   "logbookPerformance": "Performance",
+  "@logbookPerformance": {},
   "logbookCircumstances": "Circumstances: {circumstances}",
   "@logbookCircumstances": {
     "placeholders": {
@@ -49,6 +60,7 @@
     }
   },
   "logbookInfoForCoach": "Info for coach",
+  "@logbookInfoForCoach": {},
   "logbookSleep": "Sleep: {sleep}",
   "@logbookSleep": {
     "placeholders": {
@@ -68,28 +80,42 @@
     }
   },
   "settingsTitle": "Settings",
+  "@settingsTitle": {},
   "settingsCommonSection": "Common",
+  "@settingsCommonSection": {},
   "settingsSupportSection": "Support",
+  "@settingsSupportSection": {},
   "settingsTheme": "Theme",
+  "@settingsTheme": {},
   "settingsLightTheme": "Light",
+  "@settingsLightTheme": {},
   "settingsDarkTheme": "Dark",
+  "@settingsDarkTheme": {},
   "settingsSystemTheme": "System",
+  "@settingsSystemTheme": {},
   "settingsLanguage": "Language",
+  "@settingsLanguage": {},
   "settingsSystemLanguage": "System language",
+  "@settingsSystemLanguage": {},
   "settingsReportIssue": "Report a bug",
+  "@settingsReportIssue": {},
   "settingsReportIssueDescription": "Oh no, you encountered a bug? Let me know and I will try to fix it. Press {send} below to write an email.\n\nPlease include a description of the problem and how to reproduce it. Thank you!",
   "@settingsReportIssueDescription": {
     "description": "Description of how to report a bug, shown in the report bug dialog",
     "placeholders": {
       "send": {
-        "description": "Label for the send button in the report bug dialog. Will be converted to lowercase."
+        "description": "Label for the send button in the report bug dialog. Will be converted to lowercase. Will be replaced with the translation of settingsSend."
       }
     }
   },
   "settingsAbout": "About the app",
+  "@settingsAbout": {},
   "settingsSourceCodeInfo": "The source code of this app is available on GitHub.",
   "@settingsSourceCodeInfo": {
     "description": "Version of the app, shown in the about dialog. Must contain the word \"GitHub\", case sensitive, as it will be replaced with a link to the GitHub repository"
   },
-  "settingsSend": "Send"
+  "settingsSend": "Send",
+  "@settingsSend": {
+    "description": "Label for the send button in the report bug dialog. Also used in the settingsReportIssueDescription."
+  }
 }
