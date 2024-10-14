@@ -201,7 +201,10 @@ class _LogbookEntryEditContentsState
               TextFormField(
                 controller: _kmController,
                 keyboardType: TextInputType.number,
-                inputFormatters: [decimalTextInputFormatter],
+                inputFormatters: [
+                  CommaWithPeriodReplacer(),
+                  decimalTextInputFormatter,
+                ],
                 decoration: InputDecoration(
                   labelText: 'Distance (km)'.hardcoded,
                   enabled: !state.isLoading,
