@@ -155,8 +155,6 @@ class _LogbookEntryEditContentsState
                 textInputAction: TextInputAction.next,
                 onEditingComplete: () => _node.nextFocus(),
               ),
-              // TODO: implement decimal formatting https://stackoverflow.com/a/51739086
-              // Or maybe use stepper buttons or draggable bar
               TextFormField(
                 controller: _sleepController,
                 keyboardType: TextInputType.number,
