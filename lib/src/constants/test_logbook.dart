@@ -14,8 +14,7 @@ final kTestLogbook = [
     performance: "Ging prima.",
     circumstances: null,
     km: "5.8",
-    link:
-        "<a href='https://connect.garmin.com/modern/activity/88888888888' rel='nofollow' target='_blank'><button class=''>GPS</button></a>",
+    link: "https://connect.garmin.com/modern/activity/88888888888",
     feedbackCoach: null,
     timestamp: '10/06/2024',
   ),
